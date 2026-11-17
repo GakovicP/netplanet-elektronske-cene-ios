@@ -23,13 +23,13 @@ Svaki build na `main` grani objavljuje na stranici **Releases** ovog repozitorij
 ## Način B: Xcode na Mac-u
 
 ```bash
-git clone https://github.com/GakovicP/esl-link-ios.git
-cd esl-link-ios
-./setup-iphone.sh          # ili ./setup-iphone.sh TEAMID rs.netplanet.esllink.pavle
+git clone https://github.com/GakovicP/netplanet-elektronske-cene-ios.git
+cd netplanet-elektronske-cene-ios
+./setup-iphone.sh          # ili ./setup-iphone.sh TEAMID rs.netplanet.elektronskecene.pavle
 ```
 
 U Xcode-u: šema **ESLLink**, odredište **tvoj iPhone**, Signing & Capabilities → Team = *Personal Team*, pa **Product → Run** (⌘R).
-Ako bundle id `rs.netplanet.esllink` nije dostupan, pokreni `./setup-iphone.sh TEAMID rs.netplanet.esllink.nesto`.
+Ako bundle id `rs.netplanet.elektronskecene` nije dostupan, pokreni `./setup-iphone.sh TEAMID rs.netplanet.elektronskecene.nesto`.
 
 ## Napomene
 - Server na `http://` (npr. port 8085) radi – aplikacija dozvoljava nešifrovane veze, kao Android verzija.

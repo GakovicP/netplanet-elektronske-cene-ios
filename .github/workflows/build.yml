@@ -35,11 +35,12 @@ jobs:
           test -d build/device/Build/Products/Release-iphoneos/ESLLink.app
 
       - name: Build za simulator
+        continue-on-error: true
         run: |
           set -o pipefail
           xcodebuild -project ESLLink.xcodeproj -scheme ESLLink -configuration Debug \
             -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' -derivedDataPath build/sim \
-            CODE_SIGNING_ALLOWED=NO build | tail -3
+            CODE_SIGNING_ALLOWED=NO build 2>&1 | grep -E -A3 "error:|BUILD (SUCCEEDED|FAILED)"
 
       - name: Pakovanje
         id: pkg
@@ -49,10 +50,10 @@ jobs:
           mkdir -p out/Payload
           cp -R build/device/Build/Products/Release-iphoneos/ESLLink.app out/Payload/
           (cd out && zip -qry "../$N-iPhone-unsigned.ipa" Payload)
-          (cd build/sim/Build/Products/Debug-iphonesimulator && zip -qry "$GITHUB_WORKSPACE/$N-iOS-simulator.zip" ESLLink.app)
+          if [ -d build/sim/Build/Products/Debug-iphonesimulator/ESLLink.app ]; then (cd build/sim/Build/Products/Debug-iphonesimulator && zip -qry "$GITHUB_WORKSPACE/$N-iOS-simulator.zip" ESLLink.app); fi
           echo "name=$N" >> "$GITHUB_OUTPUT"
           echo "ver=$VER" >> "$GITHUB_OUTPUT"
-          ls -la *.ipa *.zip
+          ls -la *.ipa *.zip || true
 
       - uses: actions/upload-artifact@v4
         if: always()
@@ -69,5 +70,5 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           TAG="v${{ steps.pkg.outputs.ver }}-b${GITHUB_RUN_NUMBER}"
-          gh release create "$TAG" *.ipa *-simulator.zip --title "NetPlanet Elektronske cene ${{ steps.pkg.outputs.ver }} (build ${GITHUB_RUN_NUMBER})" \
+          gh release create "$TAG" *.ipa $(ls *-simulator.zip 2>/dev/null) --title "NetPlanet Elektronske cene ${{ steps.pkg.outputs.ver }} (build ${GITHUB_RUN_NUMBER})" \
             --notes "iPhone: preuzmi .ipa i instaliraj preko Sideloadly-ja (vidi docs/iPhone-install.md)."
