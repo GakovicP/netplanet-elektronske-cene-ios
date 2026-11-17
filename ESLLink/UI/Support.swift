@@ -1,5 +1,12 @@
 import SwiftUI
 
+extension UI {
+    static let PRIVACY_URL = "https://gakovicp.github.io/netplanet-elektronske-cene-ios/privacy.html"
+    static func openPrivacy() {
+        if let u = URL(string: PRIVACY_URL) { UIApplication.shared.open(u) }
+    }
+}
+
 /// Sadrzaj dijaloga Podrska: telefoni (poziv) i mail (nova poruka).
 struct SupportView: View {
     let sp: J
@@ -39,6 +46,9 @@ struct SupportView: View {
                         row(x.0, x.1, "mailto:" + x.1 + "?subject=" + ("Elektronske cene – podrška".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""))
                     }
                 }
+                Button { UI.openPrivacy() } label: {
+                    Text("Politika privatnosti").font(.ui(14)).underline().foregroundColor(UI.SUB)
+                }.buttonStyle(.plain).padding(.top, 10)
             }
             .padding(.horizontal, 24).padding(.top, 4)
         }.frame(maxHeight: 420)

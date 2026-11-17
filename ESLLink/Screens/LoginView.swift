@@ -93,6 +93,10 @@ struct LoginView: View {
                 .padding(.top, 24)
 
                 T(version, 12, Color.white.opacity(0.67)).padding(.top, 18)
+                Button { UI.openPrivacy() } label: {
+                    Text("Politika privatnosti").font(.ui(12)).underline().foregroundColor(Color.white.opacity(0.67))
+                        .padding(.vertical, 6)
+                }.buttonStyle(.plain).padding(.top, 4)
             }
             .padding(.horizontal, 14).padding(.top, 10).padding(.bottom, 22)
         }
@@ -128,6 +132,22 @@ struct LoginView: View {
         let srv: Server
         let api: Api
         let data: J
+
+        /// Naziv za izbor servera: naziv iz liste, inace prodavnica iz odgovora servera (bez IP adrese).
+        var label: String {
+            let n = srv.name.trimmed
+            let st = Json.s(data, "storeName").trimmed
+            if !n.isEmpty && !st.isEmpty && n.lowercased() != st.lowercased() { return n + " – " + st }
+            if !n.isEmpty { return n }
+            if !st.isEmpty { return st }
+            let u = Json.s(data, "userName").trimmed
+            return u.isEmpty ? srv.shortName() : u
+        }
+    }
+
+    /// " (server Naziv)" samo kad server ima naziv – IP adrese se ne prikazuju.
+    private static func onServer(_ s: Server) -> String {
+        s.name.trimmed.isEmpty ? "" : " (server " + s.name.trimmed + ")"
     }
 
     private final class Scan {
@@ -289,7 +309,7 @@ struct LoginView: View {
                 if let l = sc.locked {
                     g.set(now + LoginView.lockSec, forKey: key + ":until")
                     g.removeObject(forKey: key + ":fails")
-                    app.showError("Nalog je zaključan na serveru " + l.shortName() + " zbog previše pogrešnih lozinki (na svim uređajima). Pokušaj ponovo za 5 minuta.")
+                    app.showError("Nalog je zaključan" + LoginView.onServer(l) + " zbog previše pogrešnih lozinki (na svim uređajima). Pokušaj ponovo za 5 minuta.")
                     return
                 }
                 if let w = sc.wrongPass {
@@ -299,9 +319,9 @@ struct LoginView: View {
                     if f >= 2 {
                         g.set(now + LoginView.lockSec, forKey: key + ":until")
                         g.removeObject(forKey: key + ":fails")
-                        app.showError("Pogrešna lozinka po drugi put (server " + w.shortName() + "). Da se nalog ne bi zaključao, sledeći pokušaj za 5 minuta.")
+                        app.showError("Pogrešna lozinka po drugi put" + LoginView.onServer(w) + ". Da se nalog ne bi zaključao, sledeći pokušaj za 5 minuta.")
                     } else {
-                        app.showError("Pogrešna lozinka (server " + w.shortName() + "). Još jedna greška može da zaključa nalog.")
+                        app.showError("Pogrešna lozinka" + LoginView.onServer(w) + ". Još jedna greška može da zaključa nalog.")
                     }
                     return
                 }
@@ -318,11 +338,11 @@ struct LoginView: View {
             }
             for k in [":fails", ":until", ":last"] { g.removeObject(forKey: key + k) }
             if let s = sc.session { complete(s, sc.hits[0].srv, acc, pass); return }
-            let hits = sc.hits.sorted { $0.srv.shortName().localizedCaseInsensitiveCompare($1.srv.shortName()) == .orderedAscending }
+            let hits = sc.hits.sorted { $0.label.localizedCaseInsensitiveCompare($1.label) == .orderedAscending }
             let m = ChoiceModel()
             m.sel = hits.firstIndex { Server.norm($0.srv.url).lowercased() == last.lowercased() } ?? 0
             var spec = DialogSpec(title: "Nalog postoji na više servera",
-                                  content: AnyView(ChoiceList(m: m, names: hits.map { $0.srv.shortName() })), buttons: [
+                                  content: AnyView(ChoiceList(m: m, names: hits.map { $0.label })), buttons: [
                 DialogButton(title: "Otkaži", kind: .negative, action: { logoutOthers(hits, nil) }),
                 DialogButton(title: "Prijavi se", kind: .positive, action: {
                     finishLogin(hits[max(0, min(hits.count - 1, m.sel))], hits, acc, pass)

@@ -72,7 +72,7 @@ struct MainView: View {
 
     private func header(_ s: Session?) -> String {
         guard let s = s else { return "" }
-        var h = "Prodavnica: " + s.storeName + "\nServer: " + s.server.display()
+        var h = "Prodavnica: " + s.storeName + (s.server.name.trimmed.isEmpty ? "" : "\nServer: " + s.server.name.trimmed)
         if !s.warning.isEmpty { h += "\n⚠ " + s.warning }
         return h
     }
