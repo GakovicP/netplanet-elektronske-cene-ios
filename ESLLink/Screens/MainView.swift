@@ -110,30 +110,36 @@ struct MainView: View {
         spec.content = AnyView(DialogScroll {
             VStack(alignment: .leading, spacing: 0) {
                 ForEach(Array(s.stores.enumerated()), id: \.offset) { _, st in
-                    Button {
-                        app.closeDialog(id)
-                        if st.id == s.storeId { return }
-                        app.run({ try s.switchStore(st.id, st.name) }, done: { _ in
-                            UI.beepOk()
-                            app.showToast("Prodavnica: " + s.storeName)
-                            refresh += 1
-                        })
-                    } label: {
-                        HStack(spacing: 20) {
-                            ZStack {
-                                Circle().stroke(st.id == s.storeId ? UI.ACCENT : UI.SUB, lineWidth: 2).frame(width: 20, height: 20)
-                                if st.id == s.storeId { Circle().fill(UI.ACCENT).frame(width: 10, height: 10) }
-                            }
-                            Text(String(repeating: "    ", count: st.depth) + (st.depth > 0 ? "└ " : "") + (st.name.isEmpty ? st.id : st.name))
-                                .font(.ui(16)).foregroundColor(UI.TEXT)
-                            Spacer(minLength: 0)
-                        }
-                        .padding(.horizontal, 24).frame(minHeight: 48).contentShape(Rectangle())
-                    }.buttonStyle(.plain)
+                    storeRow(s, st, id)
                 }
             }.padding(.top, 8)
         })
         app.dialog(spec)
+    }
+
+    private func storeRow(_ s: Session, _ st: (id: String, name: String, depth: Int), _ id: UUID) -> some View {
+        let on: Bool = st.id == s.storeId
+        let pad: String = String(repeating: "    ", count: st.depth) + (st.depth > 0 ? "└ " : "")
+        let label: String = pad + (st.name.isEmpty ? st.id : st.name)
+        return Button {
+            app.closeDialog(id)
+            if on { return }
+            app.run({ try s.switchStore(st.id, st.name) }, done: { _ in
+                UI.beepOk()
+                app.showToast("Prodavnica: " + s.storeName)
+                refresh += 1
+            })
+        } label: {
+            HStack(spacing: 20) {
+                ZStack {
+                    Circle().stroke(on ? UI.ACCENT : UI.SUB, lineWidth: 2).frame(width: 20, height: 20)
+                    if on { Circle().fill(UI.ACCENT).frame(width: 10, height: 10) }
+                }
+                Text(label).font(.ui(16)).foregroundColor(UI.TEXT)
+                Spacer(minLength: 0)
+            }
+            .padding(.horizontal, 24).frame(minHeight: 48).contentShape(Rectangle())
+        }.buttonStyle(.plain)
     }
 
     private func askLogout() {

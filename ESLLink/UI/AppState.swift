@@ -49,7 +49,12 @@ final class AppState: ObservableObject {
 
     // ------------------------------------------------------------ async (BaseActivity.run)
 
-    func run<T>(_ progress: Bool = true, _ work: @escaping () throws -> T,
+    func run<T>(_ work: @escaping () throws -> T,
+                done: @escaping (T) -> Void = { _ in }, fail: ((Error) -> Void)? = nil) {
+        run(true, work, done: done, fail: fail)
+    }
+
+    func run<T>(_ progress: Bool, _ work: @escaping () throws -> T,
                 done: @escaping (T) -> Void = { _ in }, fail: ((Error) -> Void)? = nil) {
         if progress { busy += 1 }
         AppState.queue.async {
