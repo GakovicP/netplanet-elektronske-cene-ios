@@ -89,8 +89,13 @@ struct ServerEditor: View {
     @State private var port = ""
     @State private var name = ""
     @State private var adv = false
-    @State private var tUrl = "", tUser = "", tPass = "", bp = "", up = ""
-    @State private var md5 = false, trust = false
+    @State private var tUrl = ""
+    @State private var tUser = ""
+    @State private var tPass = ""
+    @State private var bp = ""
+    @State private var up = ""
+    @State private var md5 = false
+    @State private var trust = false
     @State private var urlErr = false
     @State private var loaded = false
 

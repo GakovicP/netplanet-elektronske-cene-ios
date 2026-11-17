@@ -31,8 +31,8 @@ jobs:
           xcodebuild -project ESLLink.xcodeproj -scheme ESLLink -configuration Release \
             -sdk iphoneos -destination 'generic/platform=iOS' -derivedDataPath build/device \
             CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" DEVELOPMENT_TEAM="" \
-            build | tee build-device.log | grep -E "error:|warning: .*\.swift|BUILD (SUCCEEDED|FAILED)" || true
-          test -d build/device/Build/Products/Release-iphoneos/ESLLink.app
+            build 2>&1 | tee build-device.log | grep -E -A3 "error:|BUILD (SUCCEEDED|FAILED)" || true
+          test -f build/device/Build/Products/Release-iphoneos/ESLLink.app/ESLLink
 
       - name: Build za simulator
         continue-on-error: true
