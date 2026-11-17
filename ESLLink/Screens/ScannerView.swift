@@ -256,7 +256,7 @@ struct ScannerView: View {
                 .allowsHitTesting(false)
 
             VStack {
-                Text("Usmeri kameru ka barkodu").font(.ui(18, true)).foregroundColor(.white)
+                Text(L.t("Usmeri kameru ka barkodu")).font(.ui(18, true)).foregroundColor(.white)
                     .shadow(color: .black, radius: 4)
                     .padding(.top, 48)
                 Spacer()

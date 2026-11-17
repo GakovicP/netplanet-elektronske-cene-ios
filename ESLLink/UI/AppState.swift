@@ -38,6 +38,8 @@ final class AppState: ObservableObject {
     @Published var dialogs: [DialogSpec] = []
     @Published var showLog = false
     @Published var scanning = false
+    /// Jezik interfejsa; promena ponovo iscrtava ekran.
+    @Published var lang = L.lang
     /// poziva se sa ocitanim kodom posle zatvaranja kamere
     var scanHandler: ((String) -> Void)?
 
@@ -75,7 +77,7 @@ final class AppState: ObservableObject {
 
     /// Kratka poruka na dnu ekrana (Toast).
     func showToast(_ msg: String, long: Bool = false) {
-        let m = UI.essence(msg)
+        let m = UI.essence(L.t(msg))
         if m.isEmpty { return }
         toastWork?.cancel()
         withAnimation(.easeOut(duration: 0.15)) { toast = m }
@@ -123,8 +125,19 @@ final class AppState: ObservableObject {
         }, done: { sp in
             if let sp = sp, SupportView.has(sp) { self.supportDialog(sp); return }
             let why = err ?? (sp == nil ? "U listi servera nema dela \"support\"." : "Telefon i mail za podršku nisu popunjeni.")
-            self.showError("Podrška nije dostupna.\n" + why)
+            self.showError(L.t("Podrška nije dostupna.\n") + L.t(why))
         })
+    }
+
+    func setLang(_ l: String) {
+        L.set(l)
+        lang = l
+    }
+
+    /// Politika privatnosti u aplikaciji (bez linka).
+    func showPrivacy() {
+        dialog(DialogSpec(title: "Politika privatnosti", content: AnyView(PrivacyView()),
+                          buttons: [DialogButton(title: "Zatvori")]))
     }
 
     private func supportDialog(_ sp: J) {

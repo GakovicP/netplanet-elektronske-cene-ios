@@ -40,9 +40,9 @@ struct ServersView: View {
     }
 
     private func render() {
-        servers = store.verified()
+        servers = store.manual()
         mode = store.mode()
-        if !mode.isEmpty && store.get(mode) == nil { store.setMode(""); mode = "" }
+        if !mode.isEmpty && store.fixed() == nil { store.setMode(""); mode = "" }
     }
 
     private func choose(_ s: Server?) {
@@ -62,6 +62,7 @@ struct ServersView: View {
     }
 
     private func commit(_ s: Server, _ orig: Server?, _ dlg: UUID) {
+        s.manual = true
         if orig == nil {
             // cuva se tek kada prijava uspe
             app.pendingServer = s
@@ -103,7 +104,7 @@ struct ServerEditor: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            Text(orig == nil ? "Novi server" : "Izmena servera").font(.system(size: 20, weight: .semibold)).foregroundColor(UI.TEXT)
+            Text(L.t(orig == nil ? "Novi server" : "Izmena servera")).font(.system(size: 20, weight: .semibold)).foregroundColor(UI.TEXT)
                 .padding(.horizontal, 24).padding(.top, 22)
             DialogScroll {
                 VStack(alignment: .leading, spacing: 0) {
@@ -166,7 +167,7 @@ struct ServerEditor: View {
 
     private func btn(_ t: String, _ a: @escaping () -> Void) -> some View {
         Button(action: a) {
-            Text(t.uppercased()).font(.system(size: 14, weight: .semibold)).kerning(0.6)
+            Text(L.t(t).uppercased()).font(.system(size: 14, weight: .semibold)).kerning(0.6)
                 .foregroundColor(UI.ACCENT).padding(.horizontal, 8).frame(minHeight: 40)
         }
     }

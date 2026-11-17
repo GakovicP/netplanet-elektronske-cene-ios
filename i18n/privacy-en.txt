@@ -1,0 +1,17 @@
+Effective 17 November 2026.
+NetPlanet Elektronske cene is published by NetPlanet. It is a tool for store employees to work with electronic shelf labels (ESL): linking labels to items and viewing labels and system status. It can only be used with an account on your company's ESL server.
+# Data the app uses
+• Your account and password are sent only to your company's ESL server to sign in. If you enable “Remember me”, they are stored only on your device.
+• The list of ESL servers is downloaded from a NetPlanet server and stored on the device. Manually added servers are stored only on the device.
+• The camera is used only to scan label and product barcodes. Images are processed on the device and are never stored or sent to anyone.
+• Item and label data are read and changed on your company's ESL server, within your account.
+# What we don't do
+• We do not collect personal data for ourselves, track users, or use analytics or ads.
+• We do not share or sell data to third parties.
+• The app does not access location, contacts, photos or other data on the device.
+# Where data is kept
+Item, label and account data reside on the ESL server of the company you work for, which is the data controller. Data stored on the device is removed when the app is uninstalled.
+# Security
+The server list the app downloads is digitally signed, so the app rejects a modified list. The connection to the ESL server uses the protocol your company's server supports (HTTP or HTTPS).
+# Contact
+For privacy questions and support, use the contact details in the app (tap the logo) or write to esl@netplanet.rs.

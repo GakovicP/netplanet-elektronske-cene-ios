@@ -35,7 +35,7 @@ struct MainView: View {
                         .onTapGesture { app.showSupport() }
                         .accessibilityLabel("Podrška")
                     }
-                    Text(header(s)).font(.ui(13)).foregroundColor(Color.white.opacity(0.9)).lineSpacing(3).padding(.top, 10)
+                    Text(L.t(header(s))).font(.ui(13)).foregroundColor(Color.white.opacity(0.9)).lineSpacing(3).padding(.top, 10)
                     HStack(spacing: 8) {
                         Chip(s: "Scenario: " + (s?.scenarioName ?? ""), bg: Color.white.opacity(0.2))
                         if (s?.stores.count ?? 0) > 1 {
@@ -135,7 +135,7 @@ struct MainView: View {
                     Circle().stroke(on ? UI.ACCENT : UI.SUB, lineWidth: 2).frame(width: 20, height: 20)
                     if on { Circle().fill(UI.ACCENT).frame(width: 10, height: 10) }
                 }
-                Text(label).font(.ui(16)).foregroundColor(UI.TEXT)
+                Text(L.t(label)).font(.ui(16)).foregroundColor(UI.TEXT)
                 Spacer(minLength: 0)
             }
             .padding(.horizontal, 24).frame(minHeight: 48).contentShape(Rectangle())

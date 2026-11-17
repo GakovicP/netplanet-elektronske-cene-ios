@@ -23,7 +23,7 @@ struct BusyView: View {
             Color.black.opacity(0.32).ignoresSafeArea()
             HStack(spacing: 22) {
                 ProgressView().progressViewStyle(.circular).tint(UI.ACCENT).scaleEffect(1.4)
-                Text("Molim sačekajte...").font(.ui(16)).foregroundColor(UI.TEXT)
+                Text(L.t("Molim sačekajte...")).font(.ui(16)).foregroundColor(UI.TEXT)
                 Spacer(minLength: 0)
             }
             .padding(24)
@@ -46,7 +46,7 @@ struct DialogView: View {
 
     private func btn(_ b: DialogButton) -> some View {
         Button { tap(b) } label: {
-            Text(b.title.uppercased()).font(.system(size: 14, weight: .semibold)).kerning(0.6)
+            Text(L.t(b.title).uppercased()).font(.system(size: 14, weight: .semibold)).kerning(0.6)
                 .foregroundColor(UI.ACCENT).padding(.horizontal, 8).frame(minHeight: 40)
         }
     }
@@ -60,12 +60,12 @@ struct DialogView: View {
                 }
             VStack(alignment: .leading, spacing: 0) {
                 if let t = d.title {
-                    Text(t).font(.system(size: 20, weight: .semibold)).foregroundColor(UI.TEXT)
+                    Text(L.t(t)).font(.system(size: 20, weight: .semibold)).foregroundColor(UI.TEXT)
                         .padding(.horizontal, 24).padding(.top, 22).padding(.bottom, d.message == nil && d.content == nil ? 8 : 0)
                 }
                 if let m = d.message {
                     ScrollView {
-                        Text(m).font(.ui(16)).foregroundColor(UI.SUB).frame(maxWidth: .infinity, alignment: .leading)
+                        Text(L.t(m)).font(.ui(16)).foregroundColor(UI.SUB).frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.horizontal, 24).padding(.top, d.title == nil ? 24 : 14).padding(.bottom, 8)
                     }.fixedSize(horizontal: false, vertical: true)
                 }
@@ -97,10 +97,10 @@ struct LogView: View {
         ZStack {
             Color.black.opacity(0.4).ignoresSafeArea().onTapGesture { app.showLog = false }
             VStack(alignment: .leading, spacing: 0) {
-                Text("Dnevnik komunikacije").font(.system(size: 20, weight: .semibold)).foregroundColor(UI.TEXT)
+                Text(L.t("Dnevnik komunikacije")).font(.system(size: 20, weight: .semibold)).foregroundColor(UI.TEXT)
                     .padding(.horizontal, 24).padding(.top, 22)
                 ScrollView {
-                    Text(txt.isEmpty ? "Dnevnik je prazan." : txt)
+                    Text(txt.isEmpty ? L.t("Dnevnik je prazan.") : txt)
                         .font(.system(size: 12, design: .monospaced)).foregroundColor(UI.TEXT)
                         .textSelection(.enabled)
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -121,7 +121,7 @@ struct LogView: View {
     }
 
     private func dlgBtn(_ s: String) -> some View {
-        Text(s.uppercased()).font(.system(size: 14, weight: .semibold)).kerning(0.6)
+        Text(L.t(s).uppercased()).font(.system(size: 14, weight: .semibold)).kerning(0.6)
             .foregroundColor(UI.ACCENT).padding(.horizontal, 8).frame(minHeight: 40)
     }
 }

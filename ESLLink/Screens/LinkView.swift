@@ -75,7 +75,7 @@ struct LinkView: View {
             if let info = eslInfo {
                 // vec linkovana etiketa: zelenkasta pozadina
                 let linked = !(tag?.goodsSummary().isEmpty ?? true)
-                Text(info).font(.ui(14)).foregroundColor(UI.TEXT).lineSpacing(2)
+                Text(L.t(info)).font(.ui(14)).foregroundColor(UI.TEXT).lineSpacing(2)
                     .padding(12).frame(maxWidth: .infinity, alignment: .leading)
                     .background(RoundedRectangle(cornerRadius: 12).fill(linked ? Color(argb: 0xFFE3F4E5) : UI.SOFT))
                     .overlay(RoundedRectangle(cornerRadius: 12).stroke(linked ? UI.OK.opacity(0.45) : Color.clear, lineWidth: 1))

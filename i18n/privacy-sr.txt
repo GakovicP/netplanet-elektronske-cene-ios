@@ -1,0 +1,17 @@
+Važi od 17.11.2026.
+Aplikaciju NetPlanet Elektronske cene izdaje NetPlanet. Aplikacija služi zaposlenima u prodavnicama za rad sa sistemom elektronskih cenovnih etiketa (ESL): povezivanje etiketa sa artiklima, pregled etiketa i stanja sistema. Namenjena je isključivo korisnicima koji imaju nalog na ESL serveru svoje firme.
+# Koje podatke aplikacija koristi
+• Korisnički nalog i lozinka šalju se samo ESL serveru vaše firme radi prijave. Ako uključite „Zapamti me”, čuvaju se samo na vašem telefonu.
+• Lista ESL servera preuzima se sa NetPlanet servera i čuva na telefonu. Ručno uneti serveri čuvaju se samo na telefonu.
+• Kamera se koristi samo za skeniranje barkodova etiketa i proizvoda. Slike se obrađuju na telefonu i ne čuvaju se niti šalju bilo kome.
+• Podaci o artiklima i etiketama čitaju se i menjaju na ESL serveru vaše firme, u okviru vašeg naloga.
+# Šta ne radimo
+• Ne prikupljamo lične podatke za sebe, ne pratimo korisnike i ne koristimo analitiku ni reklame.
+• Ne delimo i ne prodajemo podatke trećim stranama.
+• Ne pristupamo lokaciji, kontaktima, fotografijama ni drugim podacima na telefonu.
+# Gde se podaci nalaze
+Podaci o artiklima, etiketama i korisničkim nalozima nalaze se na ESL serveru firme za koju radite; za njih odgovara ta firma kao rukovalac podacima. Podaci sačuvani na telefonu brišu se uklanjanjem aplikacije.
+# Bezbednost
+Lista servera koju aplikacija preuzima je digitalno potpisana, pa aplikacija ne prihvata izmenjenu listu. Veza sa ESL serverom koristi protokol koji podržava server vaše firme (HTTP ili HTTPS).
+# Kontakt
+Za pitanja o privatnosti i za podršku koristite kontakt podatke iz aplikacije (dodir na logo) ili nam pišite na esl@netplanet.rs.

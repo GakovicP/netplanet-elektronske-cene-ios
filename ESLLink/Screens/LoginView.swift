@@ -6,7 +6,7 @@ struct LoginView: View {
     @State private var password = ""
     @State private var remember = false
     @State private var shown = false
-    @State private var serverInfo = "Server se bira automatski"
+    @State private var serverInfo = L.t("Automatski")
     @FocusState private var focus: Int?
 
     private let store = ServerStore()
@@ -19,19 +19,31 @@ struct LoginView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 0) {
-                // gornji red: info o automatskom izboru servera + podesavanja servera
-                HStack(spacing: 6) {
-                    IconView(icon: .server, color: UI.PRIMARY).frame(width: 24, height: 24)
-                    T(serverInfo, 16, UI.TEXT, true).multilineTextAlignment(.center)
-                        .frame(maxWidth: .infinity)
+                // gornji red: levo dugme za servere, desno izbor jezika
+                HStack {
                     Button { app.open(.servers) } label: {
-                        IconView(icon: .tune, color: UI.PRIMARY).frame(width: 24, height: 24)
-                            .frame(width: 46, height: 46)
-                            .background(RoundedRectangle(cornerRadius: 12).fill(UI.SOFT))
-                    }.accessibilityLabel("Serveri")
+                        HStack(spacing: 6) {
+                            IconView(icon: .server, color: UI.PRIMARY).frame(width: 22, height: 22)
+                            Text(serverInfo).font(.ui(14, true)).foregroundColor(UI.TEXT).lineLimit(1)
+                                .frame(maxWidth: 150, alignment: .leading).fixedSize(horizontal: true, vertical: false)
+                        }
+                        .padding(.leading, 10).padding(.trailing, 14).padding(.vertical, 8)
+                        .background(Capsule().fill(Color.white).elevation(4))
+                    }.buttonStyle(PressStyle()).accessibilityLabel(L.t("Serveri"))
+                    Spacer()
+                    Menu {
+                        Button { app.setLang("sr") } label: {
+                            if !L.en { Label("Srpski", systemImage: "checkmark") } else { Text("Srpski") }
+                        }
+                        Button { app.setLang("en") } label: {
+                            if L.en { Label("English", systemImage: "checkmark") } else { Text("English") }
+                        }
+                    } label: {
+                        Text("🌐 " + (L.en ? "EN" : "SR")).font(.ui(14, true)).foregroundColor(UI.TEXT)
+                            .padding(.horizontal, 14).padding(.vertical, 8)
+                            .background(Capsule().fill(Color.white).elevation(4))
+                    }.accessibilityLabel(L.t("Jezik"))
                 }
-                .padding(.leading, 12).padding(.trailing, 6).padding(.vertical, 4)
-                .background(RoundedRectangle(cornerRadius: 16).fill(Color.white).elevation(6))
 
                 VStack(spacing: 0) {
                     ZStack {
@@ -40,7 +52,7 @@ struct LoginView: View {
                     }.frame(width: 92, height: 92)
                     .contentShape(Circle())
                     .onTapGesture { app.showSupport() }
-                    .accessibilityLabel("Podrška")
+                    .accessibilityLabel(L.t("Podrška"))
                     T("Elektronske cene", 30, .white, true).padding(.top, 10)
                     Text("by NetPlanet").font(.ui(15)).kerning(2.2).foregroundColor(Color.white.opacity(0.8))
                 }
@@ -82,7 +94,7 @@ struct LoginView: View {
                         } label: {
                             IconView(icon: shown ? .eye : .eyeOff, color: shown ? UI.PRIMARY : UI.SUB)
                                 .frame(width: 24, height: 24).frame(width: 48, height: 48)
-                        }.accessibilityLabel("Prikaži šifru")
+                        }.accessibilityLabel(L.t("Prikaži šifru"))
                     }
                     .padding(.top, 6)
                     CheckBox(text: "Zapamti me", on: $remember).padding(.top, 8)
@@ -93,8 +105,8 @@ struct LoginView: View {
                 .padding(.top, 24)
 
                 T(version, 12, Color.white.opacity(0.67)).padding(.top, 18)
-                Button { UI.openPrivacy() } label: {
-                    Text("Politika privatnosti").font(.ui(12)).underline().foregroundColor(Color.white.opacity(0.67))
+                Button { app.showPrivacy() } label: {
+                    Text(L.t("Politika privatnosti")).font(.ui(12)).underline().foregroundColor(Color.white.opacity(0.67))
                         .padding(.vertical, 6)
                 }.buttonStyle(.plain).padding(.top, 4)
             }
@@ -122,9 +134,9 @@ struct LoginView: View {
         if account.isEmpty { account = acc ?? "" }
         if password.isEmpty { password = pass }
         remember = rem
-        if let pd = app.pendingServer { serverInfo = "Novi server: " + pd.shortName() }
-        else if let fx = store.fixed() { serverInfo = "Server: " + fx.shortName() }
-        else { serverInfo = "Server se bira automatski" }
+        if let pd = app.pendingServer { serverInfo = pd.shortName() }
+        else if let fx = store.fixed() { serverInfo = fx.shortName() }
+        else { serverInfo = L.t("Automatski") }
     }
 
     /// Uspesna prijava na jednom serveru.

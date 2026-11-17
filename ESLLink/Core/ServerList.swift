@@ -10,6 +10,11 @@ enum ServerList {
     static let PUBLIC_KEY = "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEIEMXb5B5rwENzpm/Vsc+NekYCM4A9+1R+nDly3g2DcSLGWWaw1H9E/74Xl1Em/jinFsTlYizFkB3LqyyS2xnTg=="
 
     /// Serveri ugradjeni u aplikaciju (rade i bez liste sa interneta).
+    static func isBuiltin(_ url: String) -> Bool {
+        let n = Server.norm(url).lowercased()
+        return BUILTIN.contains { Server.norm($0.1).lowercased() == n }
+    }
+
     static let BUILTIN: [(String, String)] = [
         ("", "http://23.88.63.75:8085"),
         ("", "http://37.27.183.134:8085"),

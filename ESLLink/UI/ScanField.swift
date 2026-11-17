@@ -85,7 +85,7 @@ struct ItemPickerView: View {
         VStack(alignment: .leading, spacing: 0) {
             VStack(alignment: .leading, spacing: 2) {
                 T("Izaberi proizvod", 20, UI.TEXT, true)
-                T("Pronađeno \(total) za „\(q)”" + (total > 100 ? " (prikazano 100)" : ""), 14, UI.SUB)
+                T(L.t("Pronađeno ") + "\(total)" + L.t(" za „") + q + "”" + (total > 100 ? L.t(" (prikazano 100)") : ""), 14, UI.SUB)
             }
             .padding(.horizontal, 18).padding(.top, 18).padding(.bottom, 12)
             .frame(maxWidth: .infinity, alignment: .leading)

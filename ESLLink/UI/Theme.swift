@@ -67,7 +67,7 @@ struct T: View {
     init(_ s: String, _ size: CGFloat, _ color: Color, _ bold: Bool = false) {
         self.s = s; self.size = size; self.color = color; self.bold = bold
     }
-    var body: some View { Text(s).font(.ui(size, bold)).foregroundColor(color) }
+    var body: some View { Text(L.t(s)).font(.ui(size, bold)).foregroundColor(color) }
 }
 
 /// Mali naslov velikim slovima (Ui.caption).
@@ -75,7 +75,7 @@ struct Caption: View {
     let s: String
     init(_ s: String) { self.s = s }
     var body: some View {
-        Text(s.uppercased()).font(.ui(11, true)).kerning(0.9).foregroundColor(UI.SUB)
+        Text(L.t(s).uppercased()).font(.ui(11, true)).kerning(0.9).foregroundColor(UI.SUB)
     }
 }
 
@@ -85,7 +85,7 @@ struct Chip: View {
     let bg: Color
     var fg: Color = .white
     var body: some View {
-        Text(s).font(.ui(12, true)).foregroundColor(fg)
+        Text(L.t(s)).font(.ui(12, true)).foregroundColor(fg)
             .padding(.horizontal, 12).padding(.vertical, 4)
             .background(Capsule().fill(bg))
     }
@@ -195,7 +195,7 @@ struct PrimaryButton: View {
         Button(action: action) {
             HStack(spacing: 10) {
                 if let i = icon { IconView(icon: i, color: .white).frame(width: 22, height: 22) }
-                Text(title).font(.ui(16, true)).foregroundColor(.white)
+                Text(L.t(title)).font(.ui(16, true)).foregroundColor(.white)
             }
             .padding(.horizontal, 18)
             .frame(maxWidth: .infinity, minHeight: 54)
@@ -212,7 +212,7 @@ struct FlatButton: View {
     let action: () -> Void
     var body: some View {
         Button(action: action) {
-            Text(title).font(.system(size: 15, weight: .medium)).foregroundColor(color)
+            Text(L.t(title)).font(.system(size: 15, weight: .medium)).foregroundColor(color)
                 .frame(maxWidth: .infinity, minHeight: 48)
                 .background(RoundedRectangle(cornerRadius: 14).fill(Color.white))
                 .overlay(RoundedRectangle(cornerRadius: 14).stroke(UI.LINE, lineWidth: 1))
@@ -244,7 +244,7 @@ struct FieldBG: ViewModifier {
 }
 
 /// Prazan tekst u polju (hint) u sivoj boji.
-func hintText(_ s: String) -> Text { Text(s).foregroundColor(UI.GREY) }
+func hintText(_ s: String) -> Text { Text(L.t(s)).foregroundColor(UI.GREY) }
 
 /// Tekstualno polje sa sopstvenim fokusom (za dijaloge i podesavanja).
 struct EditField: View {
@@ -284,13 +284,13 @@ struct Dropdown: View {
                 Button {
                     selection = i
                 } label: {
-                    if i == selection { Label(o, systemImage: "checkmark") } else { Text(o) }
+                    if i == selection { Label(L.t(o), systemImage: "checkmark") } else { Text(L.t(o)) }
                 }
             }
         } label: {
             HStack(spacing: 6) {
                 if centered { Spacer(minLength: 0) }
-                Text(selection >= 0 && selection < options.count ? options[selection] : "")
+                Text(selection >= 0 && selection < options.count ? L.t(options[selection]) : "")
                     .font(font).foregroundColor(enabled ? UI.TEXT : UI.GREY)
                     .lineLimit(1).multilineTextAlignment(centered ? .center : .leading)
                 Spacer(minLength: 0)
@@ -322,7 +322,7 @@ struct CheckBox: View {
                 }
                 .frame(width: 18, height: 18)
                 .padding(.leading, 5)
-                Text(text).font(.ui(size)).foregroundColor(UI.TEXT).multilineTextAlignment(.leading)
+                Text(L.t(text)).font(.ui(size)).foregroundColor(UI.TEXT).multilineTextAlignment(.leading)
                 Spacer(minLength: 0)
             }
             .frame(minHeight: 44)

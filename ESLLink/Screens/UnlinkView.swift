@@ -119,7 +119,7 @@ struct UnlinkView: View {
             return (fresh, fresh == nil ? -1 : s.strategyType(fresh!))
         }, done: { r in
             UI.beepOk()
-            app.status("Odvezan " + bd.itemCode + " sa ESL " + t.code, UI.OK)
+            app.status(L.t("Odvezan ") + bd.itemCode + L.t(" sa ESL ") + t.code, UI.OK)
             if let fresh = r.0, !fresh.bindings.isEmpty {
                 split = (fresh, r.1)
             } else {

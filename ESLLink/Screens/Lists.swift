@@ -105,7 +105,7 @@ struct PagedListView: View {
             page = pg
             rows.append(contentsOf: r.rows)
             more = r.more
-            summary = "Prikazano \(rows.count)" + (r.total >= 0 ? " od \(r.total)" : "")
+            summary = "Prikazano \(rows.count)" + (r.total >= 0 ? L.t(" od ") + "\(r.total)" : "")
             if rows.isEmpty { summary = "Nema rezultata" }
         })
     }

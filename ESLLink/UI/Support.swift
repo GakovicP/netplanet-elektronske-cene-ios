@@ -1,15 +1,28 @@
 import SwiftUI
 
-extension UI {
-    static let PRIVACY_URL = "https://gakovicp.github.io/netplanet-elektronske-cene-ios/privacy.html"
-    static func openPrivacy() {
-        if let u = URL(string: PRIVACY_URL) { UIApplication.shared.open(u) }
+/// Politika privatnosti, prikazana u aplikaciji.
+struct PrivacyView: View {
+    var body: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 6) {
+                ForEach(Array((L.en ? L.PRIVACY_EN : L.PRIVACY_SR).enumerated()), id: \.offset) { _, line in
+                    if line.hasPrefix("# ") {
+                        Text(String(line.dropFirst(2))).font(.ui(16, true)).foregroundColor(UI.ACCENT).padding(.top, 10)
+                    } else {
+                        Text(line).font(.ui(14)).foregroundColor(UI.TEXT).fixedSize(horizontal: false, vertical: true)
+                    }
+                }
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.horizontal, 24).padding(.top, 4)
+        }.frame(maxHeight: 460)
     }
 }
 
 /// Sadrzaj dijaloga Podrska: telefoni (poziv) i mail (nova poruka).
 struct SupportView: View {
     let sp: J
+    @EnvironmentObject var app: AppState
 
     static func pair(_ o: Any, _ valKey: String) -> (String, String) {
         if let j = o as? J {
@@ -43,11 +56,11 @@ struct SupportView: View {
                 if !emails.isEmpty {
                     T("E-mail", 15, UI.TEXT, true).padding(.top, 6)
                     ForEach(Array(emails.enumerated()), id: \.offset) { _, x in
-                        row(x.0, x.1, "mailto:" + x.1 + "?subject=" + ("Elektronske cene – podrška".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""))
+                        row(x.0, x.1, "mailto:" + x.1 + "?subject=" + ((L.en ? "Elektronske cene – support" : "Elektronske cene – podrška").addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""))
                     }
                 }
-                Button { UI.openPrivacy() } label: {
-                    Text("Politika privatnosti").font(.ui(14)).underline().foregroundColor(UI.SUB)
+                Button { app.showPrivacy() } label: {
+                    Text(L.t("Politika privatnosti")).font(.ui(14)).underline().foregroundColor(UI.SUB)
                 }.buttonStyle(.plain).padding(.top, 10)
             }
             .padding(.horizontal, 24).padding(.top, 4)

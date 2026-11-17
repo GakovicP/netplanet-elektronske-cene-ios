@@ -48,6 +48,7 @@ struct RootView: View {
                 }
             }
             .tint(.white)
+            .id(app.lang)
 
             if let t = app.toast {
                 VStack { Spacer(); ToastView(text: t) }.transition(.opacity).zIndex(5)
@@ -89,7 +90,7 @@ struct ScreenChrome: ViewModifier {
                                 Image(systemName: "arrow.left").font(.system(size: 19, weight: .medium)).foregroundColor(.white)
                             }
                         }
-                        Text(title).font(.system(size: 20, weight: .medium)).foregroundColor(.white).lineLimit(1)
+                        Text(L.t(title)).font(.system(size: 20, weight: .medium)).foregroundColor(.white).lineLimit(1)
                     }
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -97,7 +98,7 @@ struct ScreenChrome: ViewModifier {
                     if !items.isEmpty {
                     Menu {
                         ForEach(Array(items.enumerated()), id: \.offset) { _, m in
-                            Button(m.0) { m.1() }
+                            Button(L.t(m.0)) { m.1() }
                         }
                     } label: {
                         Image(systemName: "ellipsis").rotationEffect(.degrees(90))

@@ -7,6 +7,7 @@ final class Server {
     var url = ""
     var verified = false          // true kada je bar jednom uspesno ostvarena prijava
     var lastAccount = ""
+    var manual = false            // rucno dodat u aplikaciji (samo takvi se prikazuju u listi servera)
 
     // Napredno: "third" API (poglavlje 10 prirucnika) za link / unlink
     var thirdUrl = ""             // prazno = isti host:port kao server
@@ -71,7 +72,7 @@ final class Server {
             "thirdUrl": thirdUrl, "thirdUser": thirdUser, "thirdPass": thirdPass, "thirdMd5": thirdMd5,
             "bindPath": bindPath, "unbindPath": unbindPath, "trustAll": trustAll, "scenarioId": scenarioId,
             "searchCode": searchCode, "searchName": searchName, "extraField": extraField,
-            "extraFieldLabel": extraFieldLabel, "autoLink": autoLink, "remember": remember,
+            "extraFieldLabel": extraFieldLabel, "autoLink": autoLink, "remember": remember, "manual": manual,
             "savedPass": Data(savedPass.utf8).base64EncodedString(),
         ]
     }
@@ -83,6 +84,7 @@ final class Server {
         s.name = str("name", "")
         s.url = str("url", "")
         s.verified = Json.bool(o, "verified", false)
+        s.manual = o["manual"] == nil ? !ServerList.isBuiltin(s.url) : Json.bool(o, "manual", false)
         s.lastAccount = str("lastAccount", "")
         s.thirdUrl = str("thirdUrl", "")
         s.thirdUser = str("thirdUser", "")
@@ -139,6 +141,9 @@ struct ServerStore {
 
     func verified() -> [Server] { all().filter { $0.verified } }
 
+    /// Samo rucno dodati serveri (za ekran Serveri).
+    func manual() -> [Server] { all().filter { $0.manual } }
+
     func get(_ id: String) -> Server? { all().first { $0.id == id } }
 
     func save(_ s: Server) {
@@ -164,7 +169,8 @@ struct ServerStore {
     /// Rucno izabran server, ili nil za automatski izbor.
     func fixed() -> Server? {
         let m = mode()
-        return m.isEmpty ? nil : get(m)
+        guard !m.isEmpty, let s = get(m), s.manual else { return nil }
+        return s
     }
 }
 
