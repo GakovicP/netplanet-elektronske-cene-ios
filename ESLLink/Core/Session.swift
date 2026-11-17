@@ -546,7 +546,7 @@ final class Session {
                 for key in ["ledColor", "colorValue", "value", "code", "colorCode", "id", "key"] where v.isEmpty { v = Json.s(j, key) }
                 var n = ""
                 for key in ["ledColorName", "colorName", "translateName", "name", "label", "desc"] where n.isEmpty { n = Json.s(j, key) }
-                if !v.isEmpty { out.append((v, n.isEmpty ? "Boja " + v : n)) }
+                if !v.isEmpty { out.append((v, n.isEmpty ? L.t("Boja ") + v : n)) }
             } else if !(o is NSNull) {
                 out.append((String(k + 1), Json.str(o)))
             }

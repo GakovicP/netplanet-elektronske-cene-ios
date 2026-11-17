@@ -226,6 +226,7 @@ enum L {
         "Slobodan": "Free",
         "Nije uspelo": "Failed",
         " od ": " of ",
+        "Boja ": "Color ",
         " sa ESL ": " from ESL ",
         " za „": " for „",
         " (prikazano 100)": " (showing 100)",
@@ -288,6 +289,7 @@ enum L {
         ("~", ". Još jedna greška može da zaključa nalog.", ". One more mistake may lock the account."),
         ("~", "Zbog zaštite naloga sledeći pokušaj za ", "To protect the account, next attempt in "),
         ("~", " Napredno (link servis / SSL)", " Advanced (link service / SSL)"),
+        ("^", "Pogrešna lozinka po drugi put", "Wrong password for the second time"),
         ("~", "Odvezati sve artikle sa ESL ", "Unlink all items from ESL "),
         ("~", "Neočekivan odgovor servera: ", "Unexpected server response: "),
         ("~", "\nPoslednja komunikacija: ", "\nLast communication: "),
@@ -306,8 +308,10 @@ enum L {
         ("^", "Neispravna adresa: ", "Invalid address: "),
         ("~", "\nPoslednja veza: ", "\nLast connection: "),
         ("~", "Link nije uspeo:\n", "Link failed:\n"),
+        ("^", "Nalog je zaključan", "Account locked"),
         ("~", "Linkovano ✓\nESL ", "Linked ✓\nESL "),
         ("~", "Obrisati server ", "Delete server "),
+        ("^", "Pogrešna lozinka", "Wrong password"),
         ("^", "Prijava ide na ", "Signing in to "),
         ("~", " je već u polju", " is already in a slot"),
         ("~", ") nije uspela: ", ") failed: "),
@@ -339,7 +343,6 @@ enum L {
         ("^", "Nalog: ", "Account: "),
         ("^", "Server ", "Server "),
         ("~", " (kod ", " (code "),
-        ("^", "Boja ", "Color "),
     ]
 
     static var lang: String = {

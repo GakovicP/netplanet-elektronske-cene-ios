@@ -244,7 +244,7 @@ Nije uspelo	Failed
 ~\nTrenutno: 	\nCurrent: 
 ~ • Verzija 	 • Version 
 ~Blink poslat: 	Blink sent: 
-^Boja 	Color 
+Boja 	Color 
 ~Proizvod nije pronađen: 	Product not found: 
 ^Proizvod 	Product 
 ^Artikli (	Items (
@@ -293,3 +293,6 @@ Neispravan link liste servera.	Invalid server list link.
 ^Neispravna adresa: 	Invalid address: 
 Odvezan 	Unlinked 
 Pronađeno 	Found 
+^Pogrešna lozinka po drugi put	Wrong password for the second time
+^Pogrešna lozinka	Wrong password
+^Nalog je zaključan	Account locked
