@@ -235,6 +235,7 @@ struct FieldBG: ViewModifier {
         content
             .font(.ui(17))
             .foregroundColor(UI.TEXT)
+            .tint(UI.ACCENT)
             .padding(.leading, 14).padding(.trailing, trailingPad).padding(.vertical, 12)
             .frame(minHeight: 52)
             .background(RoundedRectangle(cornerRadius: 12).fill(focused ? Color.white : UI.FIELD))
