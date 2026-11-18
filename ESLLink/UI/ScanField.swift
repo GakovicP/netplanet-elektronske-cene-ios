@@ -173,3 +173,12 @@ private struct BlinkView: View {
         .frame(maxWidth: .infinity, alignment: .leading)
     }
 }
+
+/// Barkod etikete: duzi kod (stari ESL, npr. 0721000000000847023) se skracuje na poslednjih 10 znakova.
+func eslCode(_ v: String) -> String {
+    let t = v.trimmed
+    return t.count > 10 ? String(t.suffix(10)) : t
+}
+
+/// Motor skenera: podrazumevano Apple Vision (brzi i bolji za ostecene kodove).
+func scanEngine() -> String { Prefs.ui.string(forKey: "scanEngine") ?? "vision" }

@@ -115,7 +115,8 @@ enum L {
         "Barkod skener": "Barcode scanner",
         "Motor i kodovi koje kamera čita": "Engine and codes the camera reads",
         "Motor za čitanje barkoda (kamera)": "Barcode reading engine (camera)",
-        "ZXing (Java) – podrazumevani": "ZXing (Java) – default",
+        "ZXing (Java)": "ZXing (Java)",
+        "zxing-cpp (brži, bolji za oštećene i sitne kodove) – podrazumevani": "zxing-cpp (faster, better for damaged and small codes) – default",
         "zxing-cpp (brži, bolji za oštećene i sitne kodove)": "zxing-cpp (faster, better for damaged and small codes)",
         "Ako izabrani motor ne radi na ovom uređaju, aplikacija sama koristi ZXing.": "If the selected engine does not work on this device, the app falls back to ZXing.",
         "Čitaj QR kodove (i Data Matrix / PDF417)": "Read QR codes (and Data Matrix / PDF417)",
@@ -231,7 +232,8 @@ enum L {
         " za „": " for „",
         " (prikazano 100)": " (showing 100)",
         "Koristi za prijavu": "Use for sign-in",
-        "AVFoundation (Apple) – podrazumevani": "AVFoundation (Apple) – default",
+        "AVFoundation (Apple)": "AVFoundation (Apple)",
+        "Vision (Apple, bolji za oštećene i sitne kodove) – podrazumevani": "Vision (Apple, better for damaged and small codes) – default",
         "Vision (Apple, bolji za oštećene i sitne kodove)": "Vision (Apple, better for damaged and small codes)",
         "Ako izabrani motor ne radi na ovom uređaju, aplikacija sama koristi AVFoundation.": "If the selected engine does not work on this device, the app falls back to AVFoundation.",
         "Neispravan link liste servera.": "Invalid server list link.",
@@ -320,7 +322,7 @@ enum L {
         "Na ovoj adresi odgovara neki server, ali to nije BOWTZ API. Proveri adresu, port i putanju.": "Na ovoj adresi odgovara neki server, ali to nije BOWTZ API. Provjeri adresu, port i putanju.",
         "Promeni prodavnicu": "Promijeni prodavnicu",
         "Promeni prodavnicu ▾": "Promijeni prodavnicu ▾",
-        "ZXing (Java) – podrazumevani": "ZXing (Java) – podrazumijevani",
+        "zxing-cpp (brži, bolji za oštećene i sitne kodove) – podrazumevani": "zxing-cpp (brži, bolji za oštećene i sitne kodove) – podrazumijevani",
         "Ne razlikuje velika i mala slova, radi i po delu teksta": "Ne razlikuje velika i mala slova, radi i po dijelu teksta",
         "Osveži keš artikala i layout-a": "Osvježi keš artikala i layout-a",
         "Keš osvežen": "Keš osvježen",
@@ -334,7 +336,7 @@ enum L {
         "Svetlo": "Svjetlo",
         "Bela": "Bijela",
         "Nije uspelo": "Nije uspjelo",
-        "AVFoundation (Apple) – podrazumevani": "AVFoundation (Apple) – podrazumijevani",
+        "Vision (Apple, bolji za oštećene i sitne kodove) – podrazumevani": "Vision (Apple, bolji za oštećene i sitne kodove) – podrazumijevani",
     ]
     // (tip, sr, prevod): "~" = deo teksta bilo gde, "^" = pocetak teksta
     static let FRAG_ME: [(String, String, String)] = [

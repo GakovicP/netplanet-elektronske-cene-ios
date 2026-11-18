@@ -35,7 +35,7 @@ struct SearchSettingsView: View {
                 TitledCard(icon: .scan, color: UI.ACCENT, title: "Barkod skener", sub: "Motor i kodovi koje kamera čita") {
                     VStack(alignment: .leading, spacing: 0) {
                         T("Motor za čitanje barkoda (kamera)", 13, UI.SUB, true).padding(.top, 12)
-                        Dropdown(options: ["AVFoundation (Apple) – podrazumevani", "Vision (Apple, bolji za oštećene i sitne kodove)"], selection: $engine)
+                        Dropdown(options: ["AVFoundation (Apple)", "Vision (Apple, bolji za oštećene i sitne kodove) – podrazumevani"], selection: $engine)
                             .padding(.top, 6)
                         T("Ako izabrani motor ne radi na ovom uređaju, aplikacija sama koristi AVFoundation.", 12, UI.GREY)
                         CheckBox(text: "Čitaj QR kodove (i Data Matrix / PDF417)", on: $qr).padding(.top, 8)
@@ -55,7 +55,7 @@ struct SearchSettingsView: View {
             code = s.server.searchCode
             name = s.server.searchName
             qr = Prefs.ui.bool(forKey: "readQr")
-            engine = Prefs.ui.string(forKey: "engine") == "vision" ? 1 : 0
+            engine = scanEngine() == "vision" ? 1 : 0
             extraFields = s.fields.filter { $0.column.lowercased() != "itemcode" && $0.column.lowercased() != "itemname" }
             extra = (extraFields.firstIndex { $0.column == s.server.extraField }.map { $0 + 1 }) ?? 0
             scen = s.scenarios.firstIndex { $0.id == s.scenarioId } ?? 0
@@ -65,7 +65,7 @@ struct SearchSettingsView: View {
     private func save() {
         guard let s = app.session else { return }
         Prefs.ui.set(qr, forKey: "readQr")
-        Prefs.ui.set(engine == 1 ? "vision" : "avf", forKey: "engine")
+        Prefs.ui.set(engine == 1 ? "vision" : "avf", forKey: "scanEngine")
         s.server.searchCode = code
         s.server.searchName = name
         if extra <= 0 || extra > extraFields.count { s.server.extraField = ""; s.server.extraFieldLabel = "" }

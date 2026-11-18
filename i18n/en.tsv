@@ -110,7 +110,8 @@ Stanje sistema	System status
 Barkod skener	Barcode scanner
 Motor i kodovi koje kamera čita	Engine and codes the camera reads
 Motor za čitanje barkoda (kamera)	Barcode reading engine (camera)
-ZXing (Java) – podrazumevani	ZXing (Java) – default
+ZXing (Java)	ZXing (Java)
+zxing-cpp (brži, bolji za oštećene i sitne kodove) – podrazumevani	zxing-cpp (faster, better for damaged and small codes) – default
 zxing-cpp (brži, bolji za oštećene i sitne kodove)	zxing-cpp (faster, better for damaged and small codes)
 Ako izabrani motor ne radi na ovom uređaju, aplikacija sama koristi ZXing.	If the selected engine does not work on this device, the app falls back to ZXing.
 Čitaj QR kodove (i Data Matrix / PDF417)	Read QR codes (and Data Matrix / PDF417)
@@ -286,7 +287,8 @@ Boja 	Color
 Koristi za prijavu	Use for sign-in
 ~ server(a) nedostupno)	 server(s) unreachable)
 ~ Napredno (link servis / SSL)	 Advanced (link service / SSL)
-AVFoundation (Apple) – podrazumevani	AVFoundation (Apple) – default
+AVFoundation (Apple)	AVFoundation (Apple)
+Vision (Apple, bolji za oštećene i sitne kodove) – podrazumevani	Vision (Apple, better for damaged and small codes) – default
 Vision (Apple, bolji za oštećene i sitne kodove)	Vision (Apple, better for damaged and small codes)
 Ako izabrani motor ne radi na ovom uređaju, aplikacija sama koristi AVFoundation.	If the selected engine does not work on this device, the app falls back to AVFoundation.
 Neispravan link liste servera.	Invalid server list link.

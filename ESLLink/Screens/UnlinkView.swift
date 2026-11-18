@@ -43,7 +43,9 @@ struct UnlinkView: View {
         DispatchQueue.main.async { focus = 1 }
     }
 
-    private func onEsl(_ code: String) {
+    private func onEsl(_ raw: String) {
+        let code = eslCode(raw)
+        if code != raw.trimmed { eslText = code }
         split = nil
         let s = S
         app.run({ () -> (Tag?, Int) in

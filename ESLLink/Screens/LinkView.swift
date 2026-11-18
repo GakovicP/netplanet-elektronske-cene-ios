@@ -107,7 +107,9 @@ struct LinkView: View {
         app.status(m, UI.ERR)
     }
 
-    private func onEsl(_ code: String) {
+    private func onEsl(_ raw: String) {
+        let code = eslCode(raw)
+        if code != raw.trimmed { eslText = code }
         let multi = self.multi
         let s = S
         app.run({ () -> (Tag?, [Layout], [Int]?) in

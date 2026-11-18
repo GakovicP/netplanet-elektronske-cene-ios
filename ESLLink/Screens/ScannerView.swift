@@ -55,7 +55,7 @@ final class ScannerController: NSObject, ObservableObject, AVCaptureMetadataOutp
             let readQr = Prefs.ui.bool(forKey: "readQr")
             // motor "vision": Apple Vision citanje svakog kadra; ako ne moze, koristi se AVFoundation
             var usingVision = false
-            if Prefs.ui.string(forKey: "engine") == "vision" {
+            if scanEngine() == "vision" {
                 let vo = AVCaptureVideoDataOutput()
                 vo.alwaysDiscardsLateVideoFrames = true
                 if self.session.canAddOutput(vo) {
