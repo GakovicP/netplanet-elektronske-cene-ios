@@ -1,6 +1,6 @@
 import Foundation
 
-/// Jezik aplikacije (sr/en) i prevod na engleski. GENERISANO iz i18n/en.tsv.
+/// Jezik aplikacije (sr / me / en) i prevod. GENERISANO iz i18n/ (gen.py) - ne menjati rucno.
 enum L {
     static let EN: [String: String] = [
         "Molim sačekajte...": "Please wait...",
@@ -238,47 +238,8 @@ enum L {
         "Odvezan ": "Unlinked ",
         "Pronađeno ": "Found ",
     ]
-    /// Politika privatnosti: redovi, "# " = naslov.
-    static let PRIVACY_SR: [String] = [
-        "Važi od 17.11.2026.",
-        "Aplikaciju NetPlanet Elektronske cene izdaje NetPlanet. Aplikacija služi zaposlenima u prodavnicama za rad sa sistemom elektronskih cenovnih etiketa (ESL): povezivanje etiketa sa artiklima, pregled etiketa i stanja sistema. Namenjena je isključivo korisnicima koji imaju nalog na ESL serveru svoje firme.",
-        "# Koje podatke aplikacija koristi",
-        "• Korisnički nalog i lozinka šalju se samo ESL serveru vaše firme radi prijave. Ako uključite „Zapamti me”, čuvaju se samo na vašem telefonu.",
-        "• Lista ESL servera preuzima se sa NetPlanet servera i čuva na telefonu. Ručno uneti serveri čuvaju se samo na telefonu.",
-        "• Kamera se koristi samo za skeniranje barkodova etiketa i proizvoda. Slike se obrađuju na telefonu i ne čuvaju se niti šalju bilo kome.",
-        "• Podaci o artiklima i etiketama čitaju se i menjaju na ESL serveru vaše firme, u okviru vašeg naloga.",
-        "# Šta ne radimo",
-        "• Ne prikupljamo lične podatke za sebe, ne pratimo korisnike i ne koristimo analitiku ni reklame.",
-        "• Ne delimo i ne prodajemo podatke trećim stranama.",
-        "• Ne pristupamo lokaciji, kontaktima, fotografijama ni drugim podacima na telefonu.",
-        "# Gde se podaci nalaze",
-        "Podaci o artiklima, etiketama i korisničkim nalozima nalaze se na ESL serveru firme za koju radite; za njih odgovara ta firma kao rukovalac podacima. Podaci sačuvani na telefonu brišu se uklanjanjem aplikacije.",
-        "# Bezbednost",
-        "Lista servera koju aplikacija preuzima je digitalno potpisana, pa aplikacija ne prihvata izmenjenu listu. Veza sa ESL serverom koristi protokol koji podržava server vaše firme (HTTP ili HTTPS).",
-        "# Kontakt",
-        "Za pitanja o privatnosti i za podršku koristite kontakt podatke iz aplikacije (dodir na logo) ili nam pišite na esl@netplanet.rs.",
-    ]
-    static let PRIVACY_EN: [String] = [
-        "Effective 17 November 2026.",
-        "NetPlanet Elektronske cene is published by NetPlanet. It is a tool for store employees to work with electronic shelf labels (ESL): linking labels to items and viewing labels and system status. It can only be used with an account on your company's ESL server.",
-        "# Data the app uses",
-        "• Your account and password are sent only to your company's ESL server to sign in. If you enable “Remember me”, they are stored only on your device.",
-        "• The list of ESL servers is downloaded from a NetPlanet server and stored on the device. Manually added servers are stored only on the device.",
-        "• The camera is used only to scan label and product barcodes. Images are processed on the device and are never stored or sent to anyone.",
-        "• Item and label data are read and changed on your company's ESL server, within your account.",
-        "# What we don't do",
-        "• We do not collect personal data for ourselves, track users, or use analytics or ads.",
-        "• We do not share or sell data to third parties.",
-        "• The app does not access location, contacts, photos or other data on the device.",
-        "# Where data is kept",
-        "Item, label and account data reside on the ESL server of the company you work for, which is the data controller. Data stored on the device is removed when the app is uninstalled.",
-        "# Security",
-        "The server list the app downloads is digitally signed, so the app rejects a modified list. The connection to the ESL server uses the protocol your company's server supports (HTTP or HTTPS).",
-        "# Contact",
-        "For privacy questions and support, use the contact details in the app (tap the logo) or write to esl@netplanet.rs.",
-    ]
-    // (tip, sr, en): "~" = deo teksta bilo gde, "^" = pocetak teksta
-    static let FRAG: [(String, String, String)] = [
+    // (tip, sr, prevod): "~" = deo teksta bilo gde, "^" = pocetak teksta
+    static let FRAG_EN: [(String, String, String)] = [
         ("~", "\n\nLink servis ne pronalazi artikal. Proveri da li artikal postoji i u scenariju koji link servis koristi (npr. Items) ili da li link servis očekuje barkod umesto Item code-a.", "\n\nThe link service cannot find the item. Check that it exists in the scenario the link service uses (e.g. Items) or whether it expects a barcode instead of an Item code."),
         ("~", " je bila pogrešna. Server zaključava nalog na svim uređajima posle 3 pogrešne lozinke.\n\nPošalji ovu lozinku?", " was wrong. The server locks the account on all devices after 3 wrong passwords.\n\nSend this password?"),
         ("~", " zbog previše pogrešnih lozinki (na svim uređajima). Pokušaj ponovo za 5 minuta.", " because of too many wrong passwords (on all devices). Try again in 5 minutes."),
@@ -344,26 +305,145 @@ enum L {
         ("^", "Server ", "Server "),
         ("~", " (kod ", " (code "),
     ]
+    static let ME: [String: String] = [
+        "Dnevnik kopiran – možeš ga nalepiti u poruku": "Dnevnik kopiran – možeš ga nalijepiti u poruku",
+        "U listi servera nema dela \"support\".": "U listi servera nema dijela \"support\".",
+        "Proveri lozinku": "Provjeri lozinku",
+        "Nijedan server nije dostupan. Proveri internet.": "Nijedan server nije dostupan. Provjeri internet.",
+        "Dodirni za izbor. Dugi pritisak na ručno uneti server menja ili briše server.": "Dodirni za izbor. Dugi pritisak na ručno unijeti server mijenja ili briše server.",
+        "Izmena servera": "Izmjena servera",
+        "Izmene važe od sledeće prijave": "Izmjene važe od sljedeće prijave",
+        "Server ne odgovara (isteklo vreme).": "Server ne odgovara (isteklo vrijeme).",
+        "Server ne odgovara kao BOWTZ API. Proveri adresu, port i putanju.": "Server ne odgovara kao BOWTZ API. Provjeri adresu, port i putanju.",
+        "Server nije pronađen. Proveri adresu i mrežu.": "Server nije pronađen. Provjeri adresu i mrežu.",
+        "Ne mogu da se povežem sa serverom. Proveri adresu, port i mrežu.": "Ne mogu da se povežem sa serverom. Provjeri adresu, port i mrežu.",
+        "Na ovoj adresi odgovara neki server, ali to nije BOWTZ API. Proveri adresu, port i putanju.": "Na ovoj adresi odgovara neki server, ali to nije BOWTZ API. Provjeri adresu, port i putanju.",
+        "Promeni prodavnicu": "Promijeni prodavnicu",
+        "Promeni prodavnicu ▾": "Promijeni prodavnicu ▾",
+        "ZXing (Java) – podrazumevani": "ZXing (Java) – podrazumijevani",
+        "Ne razlikuje velika i mala slova, radi i po delu teksta": "Ne razlikuje velika i mala slova, radi i po dijelu teksta",
+        "Osveži keš artikala i layout-a": "Osvježi keš artikala i layout-a",
+        "Keš osvežen": "Keš osvježen",
+        "Usmeri kameru ka barkodu": "Usmjeri kameru ka barkodu",
+        "Proizvod za sledeće polje": "Proizvod za sljedeće polje",
+        "Etiketa već ima artikle – dodirni polje da ga zameniš": "Etiketa već ima artikle – dodirni polje da ga zamijeniš",
+        "već linkovan – dodirni za zamenu": "već linkovan – dodirni za zamjenu",
+        "Poslednja komunikacija": "Posljednja komunikacija",
+        "Osveži": "Osvježi",
+        "Osveži prikaz": "Osvježi prikaz",
+        "Svetlo": "Svjetlo",
+        "Bela": "Bijela",
+        "Nije uspelo": "Nije uspjelo",
+        "AVFoundation (Apple) – podrazumevani": "AVFoundation (Apple) – podrazumijevani",
+    ]
+    // (tip, sr, prevod): "~" = deo teksta bilo gde, "^" = pocetak teksta
+    static let FRAG_ME: [(String, String, String)] = [
+        ("~", "\n\nLink servis ne pronalazi artikal. Proveri da li artikal postoji i u scenariju koji link servis koristi (npr. Items) ili da li link servis očekuje barkod umesto Item code-a.", "\n\nLink servis ne pronalazi artikal. Provjeri da li artikal postoji i u scenariju koji link servis koristi (npr. Items) ili da li link servis očekuje barkod umjesto Item code-a."),
+        ("~", " je bila pogrešna. Server zaključava nalog na svim uređajima posle 3 pogrešne lozinke.\n\nPošalji ovu lozinku?", " je bila pogrešna. Server zaključava nalog na svim uređajima poslije 3 pogrešne lozinke.\n\nPošalji ovu lozinku?"),
+        ("~", " nije dostupan. Proveri internet ili izaberi automatski izbor.", " nije dostupan. Provjeri internet ili izaberi automatski izbor."),
+        ("~", ". Da se nalog ne bi zaključao, sledeći pokušaj za 5 minuta.", ". Da se nalog ne bi zaključao, sljedeći pokušaj za 5 minuta."),
+        ("~", "Zbog zaštite naloga sledeći pokušaj za ", "Zbog zaštite naloga sljedeći pokušaj za "),
+        ("~", "Multilink uspešan ✓\nESL ", "Multilink uspješan ✓\nESL "),
+        ("~", "Multilink nije uspeo:\n", "Multilink nije uspio:\n"),
+        ("~", "Unlink uspešan ✓\nESL ", "Unlink uspješan ✓\nESL "),
+        ("~", "Unlink nije uspeo: ", "Unlink nije uspio: "),
+        ("~", "Link nije uspeo:\n", "Link nije uspio:\n"),
+        ("~", ") nije uspela: ", ") nije uspjela: "),
+        ("~", " nije uspela: ", " nije uspjela: "),
+    ]
+    /// Politika privatnosti: redovi, "# " = naslov.
+    static let PRIVACY_SR: [String] = [
+        "Važi od 17.11.2026.",
+        "Aplikaciju NetPlanet Elektronske cene izdaje NetPlanet. Aplikacija služi zaposlenima u prodavnicama za rad sa sistemom elektronskih cenovnih etiketa (ESL): povezivanje etiketa sa artiklima, pregled etiketa i stanja sistema. Namenjena je isključivo korisnicima koji imaju nalog na ESL serveru svoje firme.",
+        "# Koje podatke aplikacija koristi",
+        "• Korisnički nalog i lozinka šalju se samo ESL serveru vaše firme radi prijave. Ako uključite „Zapamti me”, čuvaju se samo na vašem telefonu.",
+        "• Lista ESL servera preuzima se sa NetPlanet servera i čuva na telefonu. Ručno uneti serveri čuvaju se samo na telefonu.",
+        "• Kamera se koristi samo za skeniranje barkodova etiketa i proizvoda. Slike se obrađuju na telefonu i ne čuvaju se niti šalju bilo kome.",
+        "• Podaci o artiklima i etiketama čitaju se i menjaju na ESL serveru vaše firme, u okviru vašeg naloga.",
+        "# Šta ne radimo",
+        "• Ne prikupljamo lične podatke za sebe, ne pratimo korisnike i ne koristimo analitiku ni reklame.",
+        "• Ne delimo i ne prodajemo podatke trećim stranama.",
+        "• Ne pristupamo lokaciji, kontaktima, fotografijama ni drugim podacima na telefonu.",
+        "# Gde se podaci nalaze",
+        "Podaci o artiklima, etiketama i korisničkim nalozima nalaze se na ESL serveru firme za koju radite; za njih odgovara ta firma kao rukovalac podacima. Podaci sačuvani na telefonu brišu se uklanjanjem aplikacije.",
+        "# Bezbednost",
+        "Lista servera koju aplikacija preuzima je digitalno potpisana, pa aplikacija ne prihvata izmenjenu listu. Veza sa ESL serverom koristi protokol koji podržava server vaše firme (HTTP ili HTTPS).",
+        "# Kontakt",
+        "Za pitanja o privatnosti i za podršku koristite kontakt podatke iz aplikacije (dodir na logo) ili nam pišite na esl@netplanet.rs.",
+    ]
+    static let PRIVACY_ME: [String] = [
+        "Važi od 17.11.2026.",
+        "Aplikaciju NetPlanet Elektronske cene izdaje NetPlanet. Aplikacija služi zaposlenima u prodavnicama za rad sa sistemom elektronskih cjenovnih etiketa (ESL): povezivanje etiketa sa artiklima, pregled etiketa i stanja sistema. Namijenjena je isključivo korisnicima koji imaju nalog na ESL serveru svoje firme.",
+        "# Koje podatke aplikacija koristi",
+        "• Korisnički nalog i lozinka šalju se samo ESL serveru vaše firme radi prijave. Ako uključite „Zapamti me”, čuvaju se samo na vašem telefonu.",
+        "• Lista ESL servera preuzima se sa NetPlanet servera i čuva na telefonu. Ručno unijeti serveri čuvaju se samo na telefonu.",
+        "• Kamera se koristi samo za skeniranje barkodova etiketa i proizvoda. Slike se obrađuju na telefonu i ne čuvaju se niti šalju bilo kome.",
+        "• Podaci o artiklima i etiketama čitaju se i mijenjaju na ESL serveru vaše firme, u okviru vašeg naloga.",
+        "# Šta ne radimo",
+        "• Ne prikupljamo lične podatke za sebe, ne pratimo korisnike i ne koristimo analitiku ni reklame.",
+        "• Ne dijelimo i ne prodajemo podatke trećim stranama.",
+        "• Ne pristupamo lokaciji, kontaktima, fotografijama ni drugim podacima na telefonu.",
+        "# Gdje se podaci nalaze",
+        "Podaci o artiklima, etiketama i korisničkim nalozima nalaze se na ESL serveru firme za koju radite; za njih odgovara ta firma kao rukovalac podacima. Podaci sačuvani na telefonu brišu se uklanjanjem aplikacije.",
+        "# Bezbjednost",
+        "Lista servera koju aplikacija preuzima je digitalno potpisana, pa aplikacija ne prihvata izmijenjenu listu. Veza sa ESL serverom koristi protokol koji podržava server vaše firme (HTTP ili HTTPS).",
+        "# Kontakt",
+        "Za pitanja o privatnosti i za podršku koristite kontakt podatke iz aplikacije (dodir na logo) ili nam pišite na esl@netplanet.rs.",
+    ]
+    static let PRIVACY_EN: [String] = [
+        "Effective 17 November 2026.",
+        "NetPlanet Elektronske cene is published by NetPlanet. It is a tool for store employees to work with electronic shelf labels (ESL): linking labels to items and viewing labels and system status. It can only be used with an account on your company's ESL server.",
+        "# Data the app uses",
+        "• Your account and password are sent only to your company's ESL server to sign in. If you enable “Remember me”, they are stored only on your device.",
+        "• The list of ESL servers is downloaded from a NetPlanet server and stored on the device. Manually added servers are stored only on the device.",
+        "• The camera is used only to scan label and product barcodes. Images are processed on the device and are never stored or sent to anyone.",
+        "• Item and label data are read and changed on your company's ESL server, within your account.",
+        "# What we don't do",
+        "• We do not collect personal data for ourselves, track users, or use analytics or ads.",
+        "• We do not share or sell data to third parties.",
+        "• The app does not access location, contacts, photos or other data on the device.",
+        "# Where data is kept",
+        "Item, label and account data reside on the ESL server of the company you work for, which is the data controller. Data stored on the device is removed when the app is uninstalled.",
+        "# Security",
+        "The server list the app downloads is digitally signed, so the app rejects a modified list. The connection to the ESL server uses the protocol your company's server supports (HTTP or HTTPS).",
+        "# Contact",
+        "For privacy questions and support, use the contact details in the app (tap the logo) or write to esl@netplanet.rs.",
+    ]
 
     static var lang: String = {
         if let l = UserDefaults.standard.string(forKey: "ui.lang"), !l.isEmpty { return l }
-        let sys = Locale.preferredLanguages.first.map { String($0.prefix(2)) } ?? "sr"
-        return ["sr", "hr", "bs", "sh", "me"].contains(sys) || (Locale.preferredLanguages.first ?? "").hasPrefix("cnr") ? "sr" : "en"
+        let p = Locale.preferredLanguages.first ?? "sr"
+        if p.hasPrefix("cnr") || p.hasSuffix("-ME") { return "me" }
+        return ["sr", "hr", "bs", "sh"].contains(String(p.prefix(2))) ? "sr" : "en"
     }()
 
     static var en: Bool { lang == "en" }
+
+    /// Kodovi, zastavice i nazivi jezika za izbor.
+    static let LANGS: [(code: String, flag: String, name: String)] = [
+        ("sr", "\u{1F1F7}\u{1F1F8}", "Srpski"),
+        ("me", "\u{1F1F2}\u{1F1EA}", "Crnogorski"),
+        ("en", "\u{1F1EC}\u{1F1E7}", "English"),
+    ]
+
+    static var current: (code: String, flag: String, name: String) { LANGS.first { $0.code == lang } ?? LANGS[0] }
+
+    static var privacy: [String] { lang == "en" ? PRIVACY_EN : lang == "me" ? PRIVACY_ME : PRIVACY_SR }
 
     static func set(_ l: String) {
         lang = l
         UserDefaults.standard.set(l, forKey: "ui.lang")
     }
 
-    /// Prevod (samo kad je izabran engleski); nepoznat tekst ostaje isti.
+    /// Prevod na izabrani jezik; nepoznat tekst ostaje isti.
     static func t(_ s: String) -> String {
-        if !en || s.isEmpty { return s }
-        if let x = EN[s] { return x }
+        if s.isEmpty { return s }
+        let m: [String: String]
+        let fr: [(String, String, String)]
+        if lang == "en" { m = EN; fr = FRAG_EN } else if lang == "me" { m = ME; fr = FRAG_ME } else { return s }
+        if let x = m[s] { return x }
         var r = s
-        for f in FRAG {
+        for f in fr {
             if f.0 == "^" { if r.hasPrefix(f.1) { r = f.2 + r.dropFirst(f.1.count) } }
             else if r.contains(f.1) { r = r.replacingOccurrences(of: f.1, with: f.2) }
         }

@@ -32,14 +32,13 @@ struct LoginView: View {
                     }.buttonStyle(PressStyle()).accessibilityLabel(L.t("Serveri"))
                     Spacer()
                     Menu {
-                        Button { app.setLang("sr") } label: {
-                            if !L.en { Label("Srpski", systemImage: "checkmark") } else { Text("Srpski") }
-                        }
-                        Button { app.setLang("en") } label: {
-                            if L.en { Label("English", systemImage: "checkmark") } else { Text("English") }
+                        ForEach(L.LANGS, id: \.code) { lg in
+                            Button { app.setLang(lg.code) } label: {
+                                if lg.code == L.lang { Label(lg.flag + "  " + lg.name, systemImage: "checkmark") } else { Text(lg.flag + "  " + lg.name) }
+                            }
                         }
                     } label: {
-                        Text("🌐 " + (L.en ? "EN" : "SR")).font(.ui(14, true)).foregroundColor(UI.TEXT)
+                        Text(L.current.flag + " " + L.current.code.uppercased()).font(.ui(14, true)).foregroundColor(UI.TEXT)
                             .padding(.horizontal, 14).padding(.vertical, 8)
                             .background(Capsule().fill(Color.white).elevation(4))
                     }.accessibilityLabel(L.t("Jezik"))

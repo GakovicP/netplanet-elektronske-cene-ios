@@ -5,7 +5,7 @@ struct PrivacyView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 6) {
-                ForEach(Array((L.en ? L.PRIVACY_EN : L.PRIVACY_SR).enumerated()), id: \.offset) { _, line in
+                ForEach(Array(L.privacy.enumerated()), id: \.offset) { _, line in
                     if line.hasPrefix("# ") {
                         Text(String(line.dropFirst(2))).font(.ui(16, true)).foregroundColor(UI.ACCENT).padding(.top, 10)
                     } else {
