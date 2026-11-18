@@ -5,6 +5,7 @@ struct ESLLinkApp: App {
     @StateObject private var app = AppState.shared
 
     init() {
+        Brand.apply()
         // ActionBar kao u Android verziji: tamno siva traka, beli naslov
         let a = UINavigationBarAppearance()
         a.configureWithOpaqueBackground()
@@ -48,7 +49,7 @@ struct RootView: View {
                 }
             }
             .tint(.white)
-            .id(app.lang)
+            .id(app.lang + "#\(app.brandRev)")
 
             if let t = app.toast {
                 VStack { Spacer(); ToastView(text: t) }.transition(.opacity).zIndex(5)

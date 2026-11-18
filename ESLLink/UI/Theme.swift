@@ -14,9 +14,10 @@ extension Color {
 
 /// Boje i stil aplikacije (isto kao Ui.java).
 enum UI {
-    static let PRIMARY = Color(argb: 0xFF4C4C4E)
-    static let PRIMARY_DARK = Color(argb: 0xFF2F2F31)
-    static let ACCENT = Color(argb: 0xFFF57921)
+    // boje prodavnice (Brand.apply) mogu da zamene osnovne NetPlanet boje
+    static var PRIMARY = Color(argb: 0xFF4C4C4E)
+    static var PRIMARY_DARK = Color(argb: 0xFF2F2F31)
+    static var ACCENT = Color(argb: 0xFFF57921)
     static let OK = Color(argb: 0xFF2E7D32)
     static let ERR = Color(argb: 0xFFD32F2F)
     static let WARN = Color(argb: 0xFFEF6C00)
@@ -31,7 +32,7 @@ enum UI {
     static let GREY81 = Color(argb: 0xFF818284)
     static let TAB_BG = Color(argb: 0xFFE4E4E6)
 
-    static let uiPrimary = UIColor(red: 0x4C / 255.0, green: 0x4C / 255.0, blue: 0x4E / 255.0, alpha: 1)
+    static var uiPrimary: UIColor { UIColor(PRIMARY) }
 
     /// Sustina poruke: prvi red, bez tehnickih detalja.
     static func essence(_ msg: String?) -> String {

@@ -47,7 +47,7 @@ struct LoginView: View {
                 VStack(spacing: 0) {
                     ZStack {
                         Circle().fill(Color.white).elevation(6)
-                        Image("np_logo").resizable().scaledToFit().frame(width: 62, height: 62)
+                        BrandLogo(size: 62)
                     }.frame(width: 92, height: 92)
                     .contentShape(Circle())
                     .onTapGesture { app.showSupport() }
@@ -103,7 +103,8 @@ struct LoginView: View {
                 .card(radius: 18, padding: 0, elevation: 8)
                 .padding(.top, 24)
 
-                T(version, 12, Color.white.opacity(0.67)).padding(.top, 18)
+                NetPlanetFooter(onDark: true).padding(.top, 22)
+                T(version, 12, Color.white.opacity(0.67)).padding(.top, 14)
                 Button { app.showPrivacy() } label: {
                     Text(L.t("Politika privatnosti")).font(.ui(12)).underline().foregroundColor(Color.white.opacity(0.67))
                         .padding(.vertical, 6)
@@ -395,6 +396,7 @@ struct LoginView: View {
             app.pendingServer = nil
             store.setMode(srv.id)
         }
+        app.brandAfterLogin(acc) // logo i boje prodavnice (logo se preuzima u pozadini)
         app.loggedIn(s)
     }
 }

@@ -29,7 +29,7 @@ struct MainView: View {
                         Spacer(minLength: 0)
                         ZStack {
                             Circle().fill(Color.white)
-                            Image("np_logo").resizable().scaledToFit().frame(width: 36, height: 36)
+                            BrandLogo(size: 36)
                         }.frame(width: 52, height: 52)
                         .contentShape(Circle())
                         .onTapGesture { app.showSupport() }
@@ -65,6 +65,7 @@ struct MainView: View {
                         }
                     }
                 }
+                NetPlanetFooter().padding(.top, 12)
             }.padding(16)
         }
         .chrome("Elektronske cene", back: false, menu: mainMenu(s))

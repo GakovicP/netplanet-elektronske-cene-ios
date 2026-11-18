@@ -40,6 +40,9 @@ final class AppState: ObservableObject {
     @Published var scanning = false
     /// Jezik interfejsa; promena ponovo iscrtava ekran.
     @Published var lang = L.lang
+    /// Logo prodavnice (nil = NetPlanet); brandRev menja ceo prikaz kad se promene boje.
+    @Published var brandLogo: UIImage? = Brand.logo()
+    @Published var brandRev = 0
     /// poziva se sa ocitanim kodom posle zatvaranja kamere
     var scanHandler: ((String) -> Void)?
 
@@ -127,6 +130,15 @@ final class AppState: ObservableObject {
             let why = err ?? (sp == nil ? "U listi servera nema dela \"support\"." : "Telefon i mail za podršku nisu popunjeni.")
             self.showError(L.t("Podrška nije dostupna.\n") + L.t(why))
         })
+    }
+
+    /// Posle prijave: boje i logo prodavnice za domen naloga.
+    func brandAfterLogin(_ account: String) {
+        Brand.afterLogin(account) { [weak self] in
+            self?.brandLogo = Brand.logo()
+        }
+        brandLogo = Brand.logo()
+        brandRev += 1
     }
 
     func setLang(_ l: String) {
