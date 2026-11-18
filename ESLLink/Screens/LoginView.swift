@@ -65,7 +65,15 @@ struct LoginView: View {
                         .autocorrectionDisabled(true)
                         .focused($focus, equals: 1)
                         .submitLabel(.next)
-                        .onSubmit { focus = 2 }
+                        .onSubmit {
+                            focus = 2
+                            // oznaci celu postojecu lozinku da se lako zameni
+                            if !password.isEmpty {
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+                                    UIApplication.shared.sendAction(#selector(UIResponder.selectAll(_:)), to: nil, from: nil, for: nil)
+                                }
+                            }
+                        }
                         .modifier(FieldBG(focused: focus == 1))
                         .padding(.top, 6)
                     Caption("Lozinka").padding(.top, 14)

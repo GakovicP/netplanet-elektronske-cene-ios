@@ -83,7 +83,10 @@ struct MainView: View {
             if let target = t.target { app.open(target) } else { askLogout() }
         } label: {
             VStack(alignment: centered ? .center : .leading, spacing: 0) {
-                BadgeIcon(icon: t.icon, bg: t.color, size: 46)
+                ZStack {
+                    Circle().fill(LinearGradient(colors: [UI.PRIMARY, t.color], startPoint: .topLeading, endPoint: .bottomTrailing))
+                    IconView(icon: t.icon, color: .white).frame(width: 46 * 0.55, height: 46 * 0.55)
+                }.frame(width: 46, height: 46)
                 T(t.title, 17, UI.TEXT, true).padding(.top, 12)
                 T(t.sub, 13, UI.SUB)
             }
