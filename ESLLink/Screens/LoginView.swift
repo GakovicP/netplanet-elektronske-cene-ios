@@ -49,9 +49,6 @@ struct LoginView: View {
                         Circle().fill(Color.white).elevation(6)
                         BrandLogo(size: 62)
                     }.frame(width: 92, height: 92)
-                    .contentShape(Circle())
-                    .onTapGesture { app.showSupport() }
-                    .accessibilityLabel(L.t("Podrška"))
                     T("Elektronske cene", 30, .white, true).padding(.top, 10)
                     Text("by NetPlanet").font(.ui(15)).kerning(2.2).foregroundColor(Color.white.opacity(0.8))
                 }
@@ -104,6 +101,9 @@ struct LoginView: View {
                 .padding(.top, 24)
 
                 NetPlanetFooter(onDark: true).padding(.top, 22)
+                    .contentShape(Rectangle())
+                    .onTapGesture { app.showSupport() } // podrska: dodir na NetPlanet logo u dnu
+                    .accessibilityLabel(L.t("Podrška"))
                 T(version, 12, Color.white.opacity(0.67)).padding(.top, 14)
                 Button { app.showPrivacy() } label: {
                     Text(L.t("Politika privatnosti")).font(.ui(12)).underline().foregroundColor(Color.white.opacity(0.67))
