@@ -7,12 +7,12 @@ struct MainView: View {
     private struct TileDef { let title: String, sub: String, icon: Icon, color: Color, target: Screen? }
     private let tiles: [TileDef] = [
         TileDef(title: "Link", sub: "Link i Multilink", icon: .link, color: UI.ACCENT, target: .link),
-        TileDef(title: "Unlink", sub: "Odvezivanje etiketa", icon: .linkOff, color: UI.PRIMARY, target: .unlink("")),
-        TileDef(title: "Item List", sub: "Pregled artikala", icon: .cart, color: Color(argb: 0xFFF57921), target: .items),
-        TileDef(title: "ESL List", sub: "Pregled etiketa", icon: .tag, color: Color(argb: 0xFF6E6F71), target: .esls),
-        TileDef(title: "APs", sub: "Bazne stanice", icon: .wifi, color: Color(argb: 0xFF818284), target: .aps),
-        TileDef(title: "Monitoring", sub: "Stanje sistema", icon: .chart, color: Color(argb: 0xFFF57921), target: .monitoring),
-        TileDef(title: "Odjava", sub: "Kraj rada", icon: .logout, color: Color(argb: 0xFF9A9B9D), target: nil),
+        TileDef(title: "Unlink", sub: "Odvezivanje etiketa", icon: .linkOff, color: UI.ACCENT, target: .unlink("")),
+        TileDef(title: "Item List", sub: "Pregled artikala", icon: .cart, color: UI.ACCENT, target: .items),
+        TileDef(title: "ESL List", sub: "Pregled etiketa", icon: .tag, color: UI.ACCENT, target: .esls),
+        TileDef(title: "APs", sub: "Bazne stanice", icon: .wifi, color: UI.ACCENT, target: .aps),
+        TileDef(title: "Monitoring", sub: "Stanje sistema", icon: .chart, color: UI.ACCENT, target: .monitoring),
+        TileDef(title: "Odjava", sub: "Kraj rada", icon: .logout, color: UI.ACCENT, target: nil),
     ]
 
     var body: some View {
@@ -89,7 +89,7 @@ struct MainView: View {
             }
             .padding(.horizontal, 16).padding(.vertical, 18)
             .frame(maxWidth: .infinity, alignment: centered ? .center : .leading)
-            .background(RoundedRectangle(cornerRadius: 18).fill(Color.white).elevation(2))
+            .background(RoundedRectangle(cornerRadius: 18).fill(UI.CARD).elevation(2))
             .contentShape(Rectangle())
         }.buttonStyle(PressStyle())
     }

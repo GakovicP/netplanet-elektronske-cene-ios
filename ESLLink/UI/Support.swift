@@ -73,7 +73,7 @@ struct SupportView: View {
         } label: {
             VStack(alignment: .leading, spacing: 2) {
                 if !label.isEmpty { T(label, 13, UI.SUB) }
-                T(value, 17, UI.PRIMARY, true)
+                T(value, 17, UI.INK, true)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.horizontal, 16).padding(.vertical, 12)

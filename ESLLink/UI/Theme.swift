@@ -2,6 +2,11 @@ import SwiftUI
 import AudioToolbox
 
 extension Color {
+    /// Boja koja zavisi od teme telefona (svetla / tamna).
+    init(light: UInt32, dark: UInt32) {
+        self.init(UIColor { tc in UIColor(Color(argb: tc.userInterfaceStyle == .dark ? dark : light)) })
+    }
+
     /// ARGB kao u Android verziji (0xAARRGGBB).
     init(argb: UInt32) {
         self.init(.sRGB,
@@ -18,19 +23,25 @@ enum UI {
     static var PRIMARY = Color(argb: 0xFF4C4C4E)
     static var PRIMARY_DARK = Color(argb: 0xFF2F2F31)
     static var ACCENT = Color(argb: 0xFFF57921)
+    /// PRIMARY kao boja teksta/ikonice na kartici (u tamnoj temi svetlija)
+    static var INK = Color(light: 0xFF4C4C4E, dark: 0xFFC9C9CA)
     static let OK = Color(argb: 0xFF2E7D32)
     static let ERR = Color(argb: 0xFFD32F2F)
     static let WARN = Color(argb: 0xFFEF6C00)
-    static let TEXT = Color(argb: 0xFF2B2B2D)
-    static let SUB = Color(argb: 0xFF6E6F71)
-    static let BG = Color(argb: 0xFFF4F4F5)
-    static let GREY = Color(argb: 0xFF9A9B9D)
-    static let LINE = Color(argb: 0xFFE2E2E4)
-    static let SOFT = Color(argb: 0xFFFEF0E6)
-    static let FIELD = Color(argb: 0xFFF8FAFD)
-    static let GREY6E = Color(argb: 0xFF6E6F71)
-    static let GREY81 = Color(argb: 0xFF818284)
-    static let TAB_BG = Color(argb: 0xFFE4E4E6)
+    // svetla / tamna tema prati telefon
+    static let TEXT = Color(light: 0xFF2B2B2D, dark: 0xFFEDEDEF)
+    static let SUB = Color(light: 0xFF6E6F71, dark: 0xFFA5A6A8)
+    /// pozadina: boja prodavnice ("background") ili bela; u tamnoj temi tamna
+    static var BG = Color(light: 0xFFFFFFFF, dark: 0xFF121214)
+    /// povrsina kartica i dijaloga
+    static let CARD = Color(light: 0xFFFFFFFF, dark: 0xFF1F1F22)
+    static let GREY = Color(light: 0xFF9A9B9D, dark: 0xFF85868A)
+    static let LINE = Color(light: 0xFFE2E2E4, dark: 0xFF36363A)
+    static var SOFT = Color(light: 0xFFFEF0E6, dark: 0xFF3A2A1E)
+    static let FIELD = Color(light: 0xFFF8FAFD, dark: 0xFF27272B)
+    static let GREY6E = Color(light: 0xFF6E6F71, dark: 0xFF8E8F93)
+    static let GREY81 = Color(light: 0xFF818284, dark: 0xFF8E8F93)
+    static let TAB_BG = Color(light: 0xFFE4E4E6, dark: 0xFF2C2C30)
 
     static var uiPrimary: UIColor { UIColor(PRIMARY) }
 
@@ -126,7 +137,7 @@ struct CardBG: ViewModifier {
     func body(content: Content) -> some View {
         content.padding(padding)
             .frame(maxWidth: .infinity, alignment: .leading)
-            .background(RoundedRectangle(cornerRadius: radius).fill(Color.white)
+            .background(RoundedRectangle(cornerRadius: radius).fill(UI.CARD)
                 .shadow(color: .black.opacity(0.13), radius: elevation, x: 0, y: elevation * 0.6))
     }
 }
@@ -215,7 +226,7 @@ struct FlatButton: View {
         Button(action: action) {
             Text(L.t(title)).font(.system(size: 15, weight: .medium)).foregroundColor(color)
                 .frame(maxWidth: .infinity, minHeight: 48)
-                .background(RoundedRectangle(cornerRadius: 14).fill(Color.white))
+                .background(RoundedRectangle(cornerRadius: 14).fill(UI.CARD))
                 .overlay(RoundedRectangle(cornerRadius: 14).stroke(UI.LINE, lineWidth: 1))
                 .contentShape(Rectangle())
         }.buttonStyle(PressStyle())
@@ -239,7 +250,7 @@ struct FieldBG: ViewModifier {
             .tint(UI.ACCENT)
             .padding(.leading, 14).padding(.trailing, trailingPad).padding(.vertical, 12)
             .frame(minHeight: 52)
-            .background(RoundedRectangle(cornerRadius: 12).fill(focused ? Color.white : UI.FIELD))
+            .background(RoundedRectangle(cornerRadius: 12).fill(focused ? UI.CARD : UI.FIELD))
             .overlay(RoundedRectangle(cornerRadius: 12).stroke(focused ? UI.ACCENT : UI.LINE, lineWidth: focused ? 2 : 1))
     }
 }

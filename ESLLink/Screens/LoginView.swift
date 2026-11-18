@@ -23,12 +23,12 @@ struct LoginView: View {
                 HStack {
                     Button { app.open(.servers) } label: {
                         HStack(spacing: 6) {
-                            IconView(icon: .server, color: UI.PRIMARY).frame(width: 22, height: 22)
+                            IconView(icon: .server, color: UI.INK).frame(width: 22, height: 22)
                             Text(serverInfo).font(.ui(14, true)).foregroundColor(UI.TEXT).lineLimit(1)
                                 .frame(maxWidth: 150, alignment: .leading).fixedSize(horizontal: true, vertical: false)
                         }
                         .padding(.leading, 10).padding(.trailing, 14).padding(.vertical, 8)
-                        .background(Capsule().fill(Color.white).elevation(4))
+                        .background(Capsule().fill(UI.CARD).elevation(4))
                     }.buttonStyle(PressStyle()).accessibilityLabel(L.t("Serveri"))
                     Spacer()
                     Menu {
@@ -40,7 +40,7 @@ struct LoginView: View {
                     } label: {
                         Text(L.current.flag + " " + L.current.code.uppercased()).font(.ui(14, true)).foregroundColor(UI.TEXT)
                             .padding(.horizontal, 14).padding(.vertical, 8)
-                            .background(Capsule().fill(Color.white).elevation(4))
+                            .background(Capsule().fill(UI.CARD).elevation(4))
                     }.accessibilityLabel(L.t("Jezik"))
                 }
 
@@ -88,7 +88,7 @@ struct LoginView: View {
                             shown.toggle()
                             focus = 2
                         } label: {
-                            IconView(icon: shown ? .eye : .eyeOff, color: shown ? UI.PRIMARY : UI.SUB)
+                            IconView(icon: shown ? .eye : .eyeOff, color: shown ? UI.INK : UI.SUB)
                                 .frame(width: 24, height: 24).frame(width: 48, height: 48)
                         }.accessibilityLabel(L.t("Prikaži šifru"))
                     }

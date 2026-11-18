@@ -57,7 +57,7 @@ struct PagedListView: View {
                         Button { onRow(r) } label: { rowView(r) }.buttonStyle(PressStyle())
                     }
                     if more {
-                        FlatButton(title: "Učitaj još", color: UI.PRIMARY) { fetch(page + 1) }
+                        FlatButton(title: "Učitaj još", color: UI.INK) { fetch(page + 1) }
                             .padding(.top, 8).padding(.bottom, 16)
                     }
                 }.padding(.bottom, 8)
@@ -88,7 +88,7 @@ struct PagedListView: View {
         }
         .padding(14)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(RoundedRectangle(cornerRadius: 16).fill(Color.white).elevation(1))
+        .background(RoundedRectangle(cornerRadius: 16).fill(UI.CARD).elevation(1))
         .padding(.horizontal, 1)
     }
 
@@ -154,7 +154,7 @@ struct ItemListView: View {
     var body: some View {
         let s = app.session!
         let box = searchRes
-        PagedListView(title: "Item List", searchHint: hint, rowIcon: .cart, rowColor: Color(argb: 0xFFF57921), load: { q, page, _ in
+        PagedListView(title: "Item List", searchHint: hint, rowIcon: .cart, rowColor: UI.ACCENT, load: { q, page, _ in
             var r = PageResult()
             let size = ItemListView.SIZE
             if q.isEmpty {

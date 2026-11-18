@@ -20,6 +20,19 @@ enum Brand {
         UI.PRIMARY = Color(argb: UInt32(truncatingIfNeeded: pr ?? Int(DEF_PRIMARY)))
         UI.ACCENT = Color(argb: UInt32(truncatingIfNeeded: ac ?? Int(DEF_ACCENT)))
         UI.PRIMARY_DARK = Color(argb: pr.map { darker(UInt32(truncatingIfNeeded: $0)) } ?? DEF_DARK)
+        // pozadina: boja prodavnice ili bela; tamna tema telefona uvek tamna pozadina
+        let bg = (p.object(forKey: "background") as? Int).map { UInt32(truncatingIfNeeded: $0) } ?? 0xFFFFFFFF
+        UI.BG = Color(light: bg, dark: 0xFF121214)
+        let acc = UInt32(truncatingIfNeeded: ac ?? Int(DEF_ACCENT))
+        let prc = UInt32(truncatingIfNeeded: pr ?? Int(DEF_PRIMARY))
+        UI.INK = Color(light: prc, dark: mix(prc, 0xFFFFFFFF, 0.3))
+        UI.SOFT = Color(light: mix(acc, 0xFFFFFFFF, 0.12), dark: mix(acc, 0xFF1F1F22, 0.22))
+    }
+
+    /// Mesavina boja: udeo `a` boje c preko pozadine b.
+    private static func mix(_ c: UInt32, _ b: UInt32, _ a: Double) -> UInt32 {
+        func ch(_ s: UInt32) -> UInt32 { UInt32(Double((c >> s) & 0xFF) * a + Double((b >> s) & 0xFF) * (1 - a)) << s }
+        return 0xFF000000 | ch(16) | ch(8) | ch(0)
     }
 
     private static func darker(_ c: UInt32) -> UInt32 {
@@ -43,12 +56,13 @@ enum Brand {
     /// Posle uspesne prijave: nadji izgled za domen naloga, sacuvaj boje i (u pozadini) preuzmi logo.
     static func afterLogin(_ account: String, changed: @escaping () -> Void) {
         guard let br = find(account) else {
-            for k in ["primary", "accent", "hasLogo", "logoUrl"] { p.removeObject(forKey: k) }
+            for k in ["primary", "accent", "background", "hasLogo", "logoUrl"] { p.removeObject(forKey: k) }
             try? FileManager.default.removeItem(at: logoURL)
             apply()
             return
         }
-        let pr = Json.s(br, "primary"), ac = Json.s(br, "accent")
+        let pr = Json.s(br, "primary"), ac = Json.s(br, "accent"), bgc = Json.s(br, "background")
+        if bgc.isEmpty { p.removeObject(forKey: "background") } else { p.set(Int(color(bgc, 0xFFFFFFFF)), forKey: "background") }
         if pr.isEmpty { p.removeObject(forKey: "primary") } else { p.set(Int(color(pr, DEF_PRIMARY)), forKey: "primary") }
         if ac.isEmpty { p.removeObject(forKey: "accent") } else { p.set(Int(color(ac, DEF_ACCENT)), forKey: "accent") }
         apply()

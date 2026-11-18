@@ -102,7 +102,7 @@ struct UnlinkView: View {
                             }.accessibilityLabel("Unlink")
                         }
                         .padding(12)
-                        .background(RoundedRectangle(cornerRadius: 14).fill(Color.white))
+                        .background(RoundedRectangle(cornerRadius: 14).fill(UI.CARD))
                         .overlay(RoundedRectangle(cornerRadius: 14).stroke(UI.LINE, lineWidth: 1))
                     }
                 }.padding(.top, 10)

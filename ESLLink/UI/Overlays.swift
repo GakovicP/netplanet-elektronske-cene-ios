@@ -28,7 +28,7 @@ struct BusyView: View {
             }
             .padding(24)
             .frame(maxWidth: 320)
-            .background(RoundedRectangle(cornerRadius: 6).fill(Color.white).elevation(8))
+            .background(RoundedRectangle(cornerRadius: 6).fill(UI.CARD).elevation(8))
             .padding(.horizontal, 32)
         }
     }
@@ -81,7 +81,7 @@ struct DialogView: View {
                 }
             }
             .frame(maxWidth: 560)
-            .background(RoundedRectangle(cornerRadius: d.plain ? 4 : 6).fill(d.plain ? UI.BG : Color.white).elevation(10))
+            .background(RoundedRectangle(cornerRadius: d.plain ? 4 : 6).fill(d.plain ? UI.BG : UI.CARD).elevation(10))
             .clipShape(RoundedRectangle(cornerRadius: 6))
             .padding(.horizontal, 24)
             .padding(.vertical, 40)
@@ -115,7 +115,7 @@ struct LogView: View {
                     Button { app.showLog = false } label: { dlgBtn("Zatvori") }
                 }.padding(.horizontal, 12).padding(.vertical, 8)
             }
-            .background(RoundedRectangle(cornerRadius: 6).fill(Color.white).elevation(10))
+            .background(RoundedRectangle(cornerRadius: 6).fill(UI.CARD).elevation(10))
             .padding(.horizontal, 24).padding(.vertical, 40)
         }
     }

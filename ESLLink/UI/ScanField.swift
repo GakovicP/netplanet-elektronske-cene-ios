@@ -89,7 +89,7 @@ struct ItemPickerView: View {
             }
             .padding(.horizontal, 18).padding(.top, 18).padding(.bottom, 12)
             .frame(maxWidth: .infinity, alignment: .leading)
-            .background(Color.white)
+            .background(UI.CARD)
             ScrollView {
                 LazyVStack(spacing: 8) {
                     ForEach(Array(show.enumerated()), id: \.offset) { i, it in
@@ -103,7 +103,7 @@ struct ItemPickerView: View {
                                 Chip(s: it.bound ? "Linkovan" : "Slobodan", bg: it.bound ? UI.OK : UI.GREY)
                             }
                             .padding(14)
-                            .background(RoundedRectangle(cornerRadius: 14).fill(Color.white))
+                            .background(RoundedRectangle(cornerRadius: 14).fill(UI.CARD))
                             .overlay(RoundedRectangle(cornerRadius: 14).stroke(UI.LINE, lineWidth: 1))
                             .contentShape(Rectangle())
                             .onTapGesture { picked(it) }

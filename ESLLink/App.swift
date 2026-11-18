@@ -82,17 +82,17 @@ struct ScreenChrome: ViewModifier {
             .navigationBarBackButtonHidden(true)
             .toolbarBackground(UI.BG, for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
-            .toolbarColorScheme(.light, for: .navigationBar)
             .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    HStack(spacing: 22) {
-                        if back {
-                            Button { app.back() } label: {
-                                Image(systemName: "arrow.left").font(.system(size: 19, weight: .medium)).foregroundColor(UI.TEXT)
-                            }
+                if back {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button { app.back() } label: {
+                            Image(systemName: "arrow.left").font(.system(size: 19, weight: .medium)).foregroundColor(UI.TEXT)
                         }
-                        Text(L.t(title)).font(.system(size: 20, weight: .medium)).foregroundColor(UI.TEXT).lineLimit(1)
                     }
+                }
+                // naslov u sredini (na novom iOS-u levi elementi idu u mali krug i naslov se skracivao)
+                ToolbarItem(placement: .principal) {
+                    Text(L.t(title)).font(.system(size: 18, weight: .semibold)).foregroundColor(UI.TEXT).lineLimit(1)
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     let items = menu ?? [("Dnevnik komunikacije", { app.showLog = true })]

@@ -45,7 +45,7 @@ struct SearchSettingsView: View {
                     }
                 }
                 PrimaryButton(title: "Sačuvaj", color: UI.PRIMARY) { save() }.padding(.top, 4)
-                FlatButton(title: "Osveži keš artikala i layout-a", color: UI.PRIMARY) {
+                FlatButton(title: "Osveži keš artikala i layout-a", color: UI.INK) {
                     app.run({ s.clearItemCache(); _ = try s.layouts(true) }, done: { _ in app.showToast("Keš osvežen") })
                 }.padding(.top, -4)
             }.padding(14)

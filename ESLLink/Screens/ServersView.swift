@@ -119,7 +119,7 @@ struct ServerEditor: View {
                     EditField(hint: "npr. Prodavnica 1", text: $name)
 
                     Button { adv.toggle() } label: {
-                        T((adv ? "▾" : "▸") + " Napredno (link servis / SSL)", 15, UI.PRIMARY, true)
+                        T((adv ? "▾" : "▸") + " Napredno (link servis / SSL)", 15, UI.INK, true)
                     }.padding(.top, 16)
                     if adv {
                         label("Adresa link servisa (third API)")

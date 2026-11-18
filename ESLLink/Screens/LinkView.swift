@@ -57,11 +57,11 @@ struct LinkView: View {
     private func tab(_ t: String, _ icon: Icon, _ sel: Bool, _ a: @escaping () -> Void) -> some View {
         Button(action: a) {
             HStack(spacing: 8) {
-                IconView(icon: icon, color: sel ? UI.PRIMARY : UI.SUB).frame(width: 20, height: 20)
-                Text(t).font(.ui(16, true)).foregroundColor(sel ? UI.PRIMARY : UI.SUB)
+                IconView(icon: icon, color: sel ? UI.INK : UI.SUB).frame(width: 20, height: 20)
+                Text(t).font(.ui(16, true)).foregroundColor(sel ? UI.INK : UI.SUB)
             }
             .frame(maxWidth: .infinity, minHeight: 48)
-            .background(sel ? RoundedRectangle(cornerRadius: 12).fill(Color.white).elevation(2) : nil)
+            .background(sel ? RoundedRectangle(cornerRadius: 12).fill(UI.CARD).elevation(2) : nil)
             .contentShape(Rectangle())
         }.buttonStyle(.plain)
     }
@@ -77,7 +77,7 @@ struct LinkView: View {
                 let linked = !(tag?.goodsSummary().isEmpty ?? true)
                 Text(L.t(info)).font(.ui(14)).foregroundColor(UI.TEXT).lineSpacing(2)
                     .padding(12).frame(maxWidth: .infinity, alignment: .leading)
-                    .background(RoundedRectangle(cornerRadius: 12).fill(linked ? Color(argb: 0xFFE3F4E5) : UI.SOFT))
+                    .background(RoundedRectangle(cornerRadius: 12).fill(linked ? Color(light: 0xFFE3F4E5, dark: 0xFF1E3A24) : UI.SOFT))
                     .overlay(RoundedRectangle(cornerRadius: 12).stroke(linked ? UI.OK.opacity(0.45) : Color.clear, lineWidth: 1))
                     .padding(.top, 10)
             }
@@ -201,7 +201,7 @@ struct LinkView: View {
         TitledCard(icon: .tag, color: UI.PRIMARY, title: "1. Etiketa", sub: "Skeniraj ESL etiketu", done: eslDone) {
             eslCardContent
         }
-        TitledCard(icon: .cart, color: Color(argb: 0xFFF57921), title: "2. Proizvod", sub: "Skeniraj ili pretraži artikal", done: itemDone) {
+        TitledCard(icon: .cart, color: UI.ACCENT, title: "2. Proizvod", sub: "Skeniraj ili pretraži artikal", done: itemDone) {
             VStack(alignment: .leading, spacing: 0) {
                 ScanField(label: "Proizvod", hint: "Item code / naziv / barkod", text: $itemText, focus: $focus, id: F.item) { onItem($0) }
                     .padding(.top, 14)
@@ -219,7 +219,7 @@ struct LinkView: View {
             }
         }
         PrimaryButton(title: "Linkuj", color: UI.OK, icon: .link) { doLink() }
-        FlatButton(title: "Očisti", color: UI.PRIMARY) { resetLink() }.padding(.top, -4)
+        FlatButton(title: "Očisti", color: UI.INK) { resetLink() }.padding(.top, -4)
         autoBox
     }
 
@@ -279,7 +279,7 @@ struct LinkView: View {
                 }
             }
         }
-        TitledCard(icon: .cart, color: Color(argb: 0xFFF57921), title: "2. Proizvodi", sub: "Popuni polja na etiketi") {
+        TitledCard(icon: .cart, color: UI.ACCENT, title: "2. Proizvodi", sub: "Popuni polja na etiketi") {
             VStack(alignment: .leading, spacing: 0) {
                 ScanField(label: "Proizvod za sledeće polje", hint: "Item code / naziv / barkod", text: $itemText, focus: $focus, id: F.item) { v in
                     if tag == nil { error("Prvo skeniraj etiketu"); itemText = ""; refocus(.esl); return }
@@ -289,7 +289,7 @@ struct LinkView: View {
             }
         }
         PrimaryButton(title: "Multilink", color: UI.OK, icon: .multi) { doMulti() }
-        FlatButton(title: "Očisti", color: UI.PRIMARY) { resetMulti() }.padding(.top, -4)
+        FlatButton(title: "Očisti", color: UI.INK) { resetMulti() }.padding(.top, -4)
         autoBox
     }
 
@@ -342,7 +342,7 @@ struct LinkView: View {
         } else if s.item != nil {
             RoundedRectangle(cornerRadius: 14).fill(UI.SOFT)
         } else {
-            RoundedRectangle(cornerRadius: 14).fill(Color.white).overlay(RoundedRectangle(cornerRadius: 14).stroke(UI.LINE, lineWidth: 1))
+            RoundedRectangle(cornerRadius: 14).fill(UI.CARD).overlay(RoundedRectangle(cornerRadius: 14).stroke(UI.LINE, lineWidth: 1))
         }
     }
 
