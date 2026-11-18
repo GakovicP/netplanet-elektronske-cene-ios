@@ -47,7 +47,7 @@ struct LinkView: View {
             }.padding(14)
         }
         .scrollDismissesKeyboard(.interactively)
-        .chrome(multi ? "Multilink" : "Link")
+        .chrome(multi ? "Multilink" : "Link", menu: [("Podešavanja", { app.open(.settings) }), ("Dnevnik komunikacije", { app.showLog = true })])
         .onAppear {
             if app.session == nil { return }
             autoLink = S.server.autoLink

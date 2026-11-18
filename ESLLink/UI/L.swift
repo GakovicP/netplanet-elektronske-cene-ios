@@ -239,6 +239,7 @@ enum L {
         "Neispravan link liste servera.": "Invalid server list link.",
         "Odvezan ": "Unlinked ",
         "Pronađeno ": "Found ",
+        "Automatski upali lampu pri slabom svetlu": "Turn on the flashlight automatically in low light",
     ]
     // (tip, sr, prevod): "~" = deo teksta bilo gde, "^" = pocetak teksta
     static let FRAG_EN: [(String, String, String)] = [

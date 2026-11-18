@@ -6,16 +6,16 @@ struct ESLLinkApp: App {
 
     init() {
         Brand.apply()
-        // ActionBar kao u Android verziji: tamno siva traka, beli naslov
+        // zaglavlje providno: boja pozadine ekrana, tamni naslov i ikonice
         let a = UINavigationBarAppearance()
         a.configureWithOpaqueBackground()
-        a.backgroundColor = UI.uiPrimary
-        a.shadowColor = UIColor.black.withAlphaComponent(0.25)
-        a.titleTextAttributes = [.foregroundColor: UIColor.white, .font: UIFont.systemFont(ofSize: 20, weight: .medium)]
+        a.backgroundColor = UIColor(UI.BG)
+        a.shadowColor = .clear
+        a.titleTextAttributes = [.foregroundColor: UIColor(UI.TEXT), .font: UIFont.systemFont(ofSize: 20, weight: .medium)]
         UINavigationBar.appearance().standardAppearance = a
         UINavigationBar.appearance().scrollEdgeAppearance = a
         UINavigationBar.appearance().compactAppearance = a
-        UINavigationBar.appearance().tintColor = .white
+        UINavigationBar.appearance().tintColor = UIColor(UI.TEXT)
     }
 
     var body: some Scene {
@@ -48,7 +48,7 @@ struct RootView: View {
                     }
                 }
             }
-            .tint(.white)
+            .tint(UI.TEXT)
             .id(app.lang + "#\(app.brandRev)")
 
             if let t = app.toast {
@@ -80,18 +80,18 @@ struct ScreenChrome: ViewModifier {
             .background(UI.BG.ignoresSafeArea())
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarBackButtonHidden(true)
-            .toolbarBackground(UI.PRIMARY, for: .navigationBar)
+            .toolbarBackground(UI.BG, for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
-            .toolbarColorScheme(.dark, for: .navigationBar)
+            .toolbarColorScheme(.light, for: .navigationBar)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     HStack(spacing: 22) {
                         if back {
                             Button { app.back() } label: {
-                                Image(systemName: "arrow.left").font(.system(size: 19, weight: .medium)).foregroundColor(.white)
+                                Image(systemName: "arrow.left").font(.system(size: 19, weight: .medium)).foregroundColor(UI.TEXT)
                             }
                         }
-                        Text(L.t(title)).font(.system(size: 20, weight: .medium)).foregroundColor(.white).lineLimit(1)
+                        Text(L.t(title)).font(.system(size: 20, weight: .medium)).foregroundColor(UI.TEXT).lineLimit(1)
                     }
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -103,7 +103,7 @@ struct ScreenChrome: ViewModifier {
                         }
                     } label: {
                         Image(systemName: "ellipsis").rotationEffect(.degrees(90))
-                            .font(.system(size: 18, weight: .bold)).foregroundColor(.white)
+                            .font(.system(size: 18, weight: .bold)).foregroundColor(UI.TEXT)
                             .frame(width: 32, height: 32)
                     }
                     }

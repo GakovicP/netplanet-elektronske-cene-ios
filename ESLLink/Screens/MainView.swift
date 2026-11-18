@@ -97,7 +97,6 @@ struct MainView: View {
     private func mainMenu(_ s: Session?) -> [(String, () -> Void)] {
         var m: [(String, () -> Void)] = []
         if (s?.stores.count ?? 0) > 1 { m.append(("Promeni prodavnicu", { chooseStore() })) }
-        m.append(("Podešavanja", { app.open(.settings) }))
         m.append(("Dnevnik komunikacije", { app.showLog = true }))
         m.append(("Odjava", { askLogout() }))
         return m

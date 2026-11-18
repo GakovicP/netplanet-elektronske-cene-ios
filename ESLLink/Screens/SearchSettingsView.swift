@@ -6,6 +6,7 @@ struct SearchSettingsView: View {
     @State private var code = true
     @State private var name = true
     @State private var qr = false
+    @State private var autoTorch = false
     @State private var engine = 0
     @State private var extra = 0
     @State private var scen = 0
@@ -40,6 +41,7 @@ struct SearchSettingsView: View {
                         T("Ako izabrani motor ne radi na ovom uređaju, aplikacija sama koristi AVFoundation.", 12, UI.GREY)
                         CheckBox(text: "Čitaj QR kodove (i Data Matrix / PDF417)", on: $qr).padding(.top, 8)
                         T("Kada je isključeno, kamera čita samo obične (linijske) barkodove.", 12, UI.GREY)
+                        CheckBox(text: "Automatski upali lampu pri slabom svetlu", on: $autoTorch).padding(.top, 8)
                     }
                 }
                 PrimaryButton(title: "Sačuvaj", color: UI.PRIMARY) { save() }.padding(.top, 4)
@@ -55,6 +57,7 @@ struct SearchSettingsView: View {
             code = s.server.searchCode
             name = s.server.searchName
             qr = Prefs.ui.bool(forKey: "readQr")
+            autoTorch = Prefs.ui.bool(forKey: "autoTorch")
             engine = scanEngine() == "vision" ? 1 : 0
             extraFields = s.fields.filter { $0.column.lowercased() != "itemcode" && $0.column.lowercased() != "itemname" }
             extra = (extraFields.firstIndex { $0.column == s.server.extraField }.map { $0 + 1 }) ?? 0
@@ -65,6 +68,7 @@ struct SearchSettingsView: View {
     private func save() {
         guard let s = app.session else { return }
         Prefs.ui.set(qr, forKey: "readQr")
+        Prefs.ui.set(autoTorch, forKey: "autoTorch")
         Prefs.ui.set(engine == 1 ? "vision" : "avf", forKey: "scanEngine")
         s.server.searchCode = code
         s.server.searchName = name

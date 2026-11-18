@@ -22,6 +22,10 @@ final class ScannerController: NSObject, ObservableObject, AVCaptureMetadataOutp
     private var ladder: [CGFloat] = []
     private var ladderIdx = 0
     private var autoTimer: Timer?
+    /// Automatska lampa (pref ui/autoTorch, podrazumevano iskljuceno): pali se kad kamera radi pri slabom svetlu.
+    private var lightTimer: Timer?
+    private var manualTorch = false
+    private var darkTicks = 0
 
     /// Najveci zum koji nudimo (ekvivalent getMaxZoom na Androidu).
     private var maxZoom: CGFloat {
@@ -97,12 +101,16 @@ final class ScannerController: NSObject, ObservableObject, AVCaptureMetadataOutp
             DispatchQueue.main.async {
                 self.buildLadder()
                 if self.autoZoom { self.startAuto() } else { self.setZoomPct(pct) }
+                if Prefs.ui.bool(forKey: "autoTorch") {
+                    self.lightTimer = Timer.scheduledTimer(withTimeInterval: 0.4, repeats: true) { [weak self] _ in self?.checkLight() }
+                }
             }
     }
 
     func stop() {
         autoTimer?.invalidate(); autoTimer = nil
-        if torch { toggleTorch() }
+        lightTimer?.invalidate(); lightTimer = nil
+        if torch { setTorch(false) }
         queue.async { if self.session.isRunning { self.session.stopRunning() } }
     }
 
@@ -182,10 +190,27 @@ final class ScannerController: NSObject, ObservableObject, AVCaptureMetadataOutp
     }
 
     func toggleTorch() {
+        manualTorch = true // rucno: automatika se vise ne mesa
+        setTorch(!torch)
+    }
+
+    private func setTorch(_ on: Bool) {
         guard let d = device, d.hasTorch, let _ = try? d.lockForConfiguration() else { return }
-        torch.toggle()
-        d.torchMode = torch ? .on : .off
+        torch = on
+        d.torchMode = on ? .on : .off
         d.unlockForConfiguration()
+    }
+
+    /// Tamno = kamera je podigla ISO blizu maksimuma i produzila ekspoziciju.
+    private func checkLight() {
+        guard let d = device, d.hasTorch, !torch, !manualTorch, !done else { return }
+        let maxIso = d.activeFormat.maxISO
+        let dark = maxIso > 0 && d.iso / maxIso >= 0.45 && CMTimeGetSeconds(d.exposureDuration) >= 1.0 / 35.0
+        darkTicks = dark ? darkTicks + 1 : 0
+        if darkTicks >= 3 {
+            lightTimer?.invalidate(); lightTimer = nil
+            setTorch(true)
+        }
     }
 
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput objs: [AVMetadataObject], from connection: AVCaptureConnection) {
