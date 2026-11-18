@@ -12,7 +12,7 @@ struct MainView: View {
         TileDef(title: "ESL List", sub: "Pregled etiketa", icon: .tag, color: UI.ACCENT, target: .esls),
         TileDef(title: "APs", sub: "Bazne stanice", icon: .wifi, color: UI.ACCENT, target: .aps),
         TileDef(title: "Monitoring", sub: "Stanje sistema", icon: .chart, color: UI.ACCENT, target: .monitoring),
-        TileDef(title: "Odjava", sub: "Kraj rada", icon: .logout, color: UI.ACCENT, target: nil),
+        TileDef(title: "Odjava", sub: "Kraj rada", icon: .logout, color: Color(argb: 0xFF9A9B9D), target: nil),
     ]
 
     var body: some View {
@@ -84,7 +84,7 @@ struct MainView: View {
         } label: {
             VStack(alignment: centered ? .center : .leading, spacing: 0) {
                 ZStack {
-                    Circle().fill(LinearGradient(colors: [UI.PRIMARY, t.color], startPoint: .topLeading, endPoint: .bottomTrailing))
+                    Circle().fill(LinearGradient(colors: t.target == nil ? [t.color, t.color] : [UI.PRIMARY, t.color], startPoint: .topLeading, endPoint: .bottomTrailing))
                     IconView(icon: t.icon, color: .white).frame(width: 46 * 0.55, height: 46 * 0.55)
                 }.frame(width: 46, height: 46)
                 T(t.title, 17, UI.TEXT, true).padding(.top, 12)
