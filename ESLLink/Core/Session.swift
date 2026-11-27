@@ -526,10 +526,38 @@ final class Session {
         if !server.extraField.isEmpty || (res.isEmpty && cached) {
             addAll(try allItems())
         }
-        return res.enumerated().sorted {
+        var sorted = res.enumerated().sorted {
             let a = rank($0.element, q), b = rank($1.element, q)
             return a != b ? a < b : $0.offset < $1.offset
         }.map { $0.element }
+        // barkod sa vodecim nulama: prodavnica ga nekad zaduzi sa 0, nekad sa 00, nekad bez nule.
+        // Ako nema tacnog pogotka, probaj isti broj sa 0, 1 i 2 vodece nule.
+        if !sorted.contains(where: { rank($0, q) == 0 }) && (server.searchCode || server.searchName) {
+            var hits: [Item] = []
+            for v in Session.zeroVariants(query.trimmed) {
+                if let p = try? itemsPage(v, 0, 1, 100) {
+                    for it in p.items where it.code.lowercased() == v.lowercased() && seen.insert(it.id + "|" + it.code).inserted { hits.append(it) }
+                }
+                if !hits.isEmpty { break }
+            }
+            sorted.insert(contentsOf: hits, at: 0)
+        }
+        return sorted
+    }
+
+    /// Varijante barkoda sa 0, 1 i 2 vodece nule (samo cifre, najmanje 6).
+    static func zeroVariants(_ q: String) -> [String] {
+        guard q.count >= 6, q.allSatisfy({ $0.isASCII && $0.isNumber }) else { return [] }
+        let n = q.prefix(while: { $0 == "0" }).count
+        if n > 2 { return [] }
+        let core = String(q.dropFirst(n))
+        var out: [String] = []
+        // prvo manje nula (najcesci slucaj: skener procita 00, a artikal je zaduzen sa 0)
+        for k in [n - 1, n - 2, n + 1, n + 2] where k >= 0 && k <= 2 && k != n {
+            let v = String(repeating: "0", count: k) + core
+            if !out.contains(v) { out.append(v) }
+        }
+        return out
     }
 
     // ------------------------------------------------------------ akcije

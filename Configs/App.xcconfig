@@ -1,7 +1,7 @@
 // Potpisivanje: automatski, Personal Team (besplatan Apple ID).
 // Svoj DEVELOPMENT_TEAM (i po potrebi PRODUCT_BUNDLE_IDENTIFIER) upisi u Local.xcconfig (nije u git-u).
-MARKETING_VERSION = 1.18
-CURRENT_PROJECT_VERSION = 20
+MARKETING_VERSION = 1.20
+CURRENT_PROJECT_VERSION = 21
 PRODUCT_BUNDLE_IDENTIFIER = rs.netplanet.elektronskecene
 CODE_SIGN_STYLE = Automatic
 CODE_SIGN_IDENTITY = Apple Development
